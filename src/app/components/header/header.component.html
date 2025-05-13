@@ -1,1 +1,24 @@
-<p>header works!</p>
+<div class="card ">
+  <p-toolbar [style]="{ 'border-radius': '2rem', 'padding': '0rem', 'border':'none'  }">
+    <ng-template #start>
+      <h3 class="ml-6">Pan Casero</h3>
+    </ng-template>
+
+    <ng-template #end>
+      <div class="flex justify-content-evenly gap-5">
+        <p-button label="Dashboard" text plain />
+        <p-button label="Pedidos" text plain />
+        <p-button label="Clientes" text plain />
+        <p-button label="Productos" text plain />
+        <p-button label="Inventario" text plain />
+        <p-button label="Reportes" text plain />
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          [style]="{ width: '32px', height: '32px' }"
+          class="mr-5 mt-2"
+        />
+      </div>
+    </ng-template>
+  </p-toolbar>
+</div>
+ <hr style="width:100%;text-align:left;margin-left:0;color: burlywood;">
