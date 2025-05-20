@@ -1,7 +1,17 @@
 <div class="card">
-  <div class="flex flex-column">
-    <input type="text" pInputText [(ngModel)]="value" placeholder="Buscar" />
-  </div>
+    <div class="flex align-items-center">
+
+      <div class="absolute">
+        <span class="pi pi-search relative" style="left: 15px; top: 3px;"></span>
+      </div>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="value"
+        placeholder="Buscar"
+        class="pl-6 flex-1"
+      />
+    </div>
   <p-panel>
     <p-table
       [value]="products"
