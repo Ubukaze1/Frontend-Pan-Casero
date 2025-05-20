@@ -3,6 +3,7 @@ import { Toolbar } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,4 +12,15 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+
+  constructor(private router:Router){}
+
+  iraProductos() {
+    console.log("Entra aqui")
+    this.router.navigateByUrl("productos")
+  }
+  iraInventario() {
+    this.router.navigateByUrl("inventario")
+  }
+
 }
