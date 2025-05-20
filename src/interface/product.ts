@@ -14,3 +14,11 @@ export interface Product {
 export interface ProductDTO {
   data: Product[]
 }
+
+
+export interface ListaProductos {
+  producto: string,
+  categoria: string,
+  precio: number,
+  inventario: number,
+}

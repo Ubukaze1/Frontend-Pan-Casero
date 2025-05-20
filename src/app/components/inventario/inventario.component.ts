@@ -1,6 +1,6 @@
 import { Product } from '../../../interface/product';
 import { ProductService } from '../../../service/product.service';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { Tag } from 'primeng/tag';
@@ -12,19 +12,40 @@ import { signal } from '@angular/core';
   imports: [DataView, ButtonModule, Tag, CommonModule],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.css',
-  standalone: true,
   providers: [ProductService],
 })
-export class InventarioComponent{
-  products = signal<any>([]);
+export class InventarioComponent {
+  products = signal<Product[]>([]);
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit(): void {
-    this.productService.getProducts().subscribe((items) => {
-      console.log(JSON.stringify(items));
-      this.products.set(items);
-    });
+  ngOnInit() {
+    this.products.set([
+      {
+        id: '1000',
+        code: 'f230fh0g3',
+        name: 'Bamboo Watch',
+        description: 'Product Description',
+        image: '../../../assets/bamboo-watch.jpg',
+        price: 65,
+        category: 'Accessories',
+        quantity: 24,
+        inventoryStatus: 'INSTOCK',
+        rating: 5,
+      },
+      {
+        id: '1001',
+        code: 'f230fh0g3',
+        name: 'Bamboo Watch',
+        description: 'Product Description',
+        image: './bamboo-watch.jpg',
+        price: 65,
+        category: 'Accessories',
+        quantity: 24,
+        inventoryStatus: 'INSTOCK',
+        rating: 5,
+      },
+    ]);
   }
 
   getSeverity(product: Product) {

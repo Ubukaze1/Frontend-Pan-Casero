@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Product, ProductDTO } from '../interface/product';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
@@ -11,6 +13,6 @@ export class ProductService {
     console.log("Entro aqui")
     return this.httpClient
       .get<ProductDTO>('../assets/product.json')
-      .pipe(map((u) => u.data));
+      .pipe(map((u) => u.data))
   }
 }
