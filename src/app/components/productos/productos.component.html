@@ -1,31 +1,47 @@
-<div class="card">
-  <div class="flex flex-column">
-    <input type="text" pInputText [(ngModel)]="value" placeholder="Buscar" />
+<div class="flex justify-content-center flex-wrap mt-6" >
+  <div class="card w-10">
+    <div class="flex justify-content-between flex-wrap align-items-center">
+      <h1>Gestiòn de productos</h1>
+
+      <p-button label="Nuevo producto" severity="success" />
+    </div>
+    <div class="flex align-items-center">
+      <div class="absolute">
+        <span class="pi pi-search relative" style="left: 15px; top: 3px"></span>
+      </div>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="value"
+        placeholder="Buscar"
+        class="pl-6 flex-1"
+      />
+    </div>
+    <p-panel>
+      <p-table
+        [value]="products"
+        showGridlines
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template #header>
+          <tr>
+            <th>Producto</th>
+            <th>Categoria</th>
+            <th>Precio</th>
+            <th>Inventario</th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-product>
+          <tr>
+            <td>{{ product.producto }}</td>
+            <td>{{ product.categoria }}</td>
+            <td>{{ product.precio }}</td>
+            <td>{{ product.inventario }}</td>
+            <td>Editar</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
   </div>
-  <p-panel>
-    <p-table
-      [value]="products"
-      showGridlines
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
-      <ng-template #header>
-        <tr>
-          <th>Producto</th>
-          <th>Categoria</th>
-          <th>Precio</th>
-          <th>Inventario</th>
-          <th>Acciones</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-product>
-        <tr>
-          <td>{{ product.producto }}</td>
-          <td>{{ product.categoria }}</td>
-          <td>{{ product.precio }}</td>
-          <td>{{ product.inventario }}</td>
-          <td>Editar</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </p-panel>
 </div>

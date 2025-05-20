@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
 import {FormsModule} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
 
 
 @Component({
   selector: 'app-productos',
-  imports: [TableModule, CommonModule, PanelModule,FormsModule,InputTextModule],
+  imports: [TableModule, CommonModule, PanelModule,FormsModule,InputTextModule,ButtonModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
   providers: [ProductService],
