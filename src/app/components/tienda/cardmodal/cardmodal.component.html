@@ -33,16 +33,19 @@
         <div class="quantity-selector">
           <span>CANTIDAD</span>
           <div class="qty-buttons">
-            <button type="button" class="qty-btn minus">−</button>
-            <input type="number" min="1" value="1" class="qty-input" />
-            <button type="button" class="qty-btn plus">+</button>
+            <button type="button" class="qty-btn minus" (click)="decrementar()">−</button>
+
+            <input type="number" min="1" [value]="cantidad" class="qty-input" />
+            <button type="button" class="qty-btn plus" (click)="incrementar()">+</button>
           </div>
         </div>
 
         <!-- Botones de acción -->
         <div class="actions">
-          <button type="button" class="btn-add-cart">Agregar al carrito</button>
-          <button type="button" class="btn-view-details">Ver detalles</button>
+          <button type="button" class="btn-add-cart" (click)="mensajeFun()">Agregar al carrito</button>
+          <div class="res">
+          <span type="button" class="btn-view-details">{{mensaje}}</span>
+          </div>
         </div>
       </div>
     </div>
