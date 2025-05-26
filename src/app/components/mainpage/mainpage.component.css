@@ -3,15 +3,6 @@
   flex-direction: column;
 }
 
-.imagen {
-  position: relative;
-  opacity: 0.7;
-  height: 100%;
-  width: 100%;
-  top: -150px;
-  border: 0;
-}
-
 .wrap {
   width: 100vw;
   height: 100vh;

@@ -1,0 +1,44 @@
+.component {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 150px;
+  strong {
+    font-size: 10px;
+    font-style: italic;
+  }
+  select {
+    padding: 5px;
+    font-size: 0.7rem;
+    border: none;
+    background-color: transparent;
+  }
+
+}
+
+.centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.sub-component {
+  width: 50%;
+
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  row-gap: 10px;
+  margin-bottom: 50px;
+}
