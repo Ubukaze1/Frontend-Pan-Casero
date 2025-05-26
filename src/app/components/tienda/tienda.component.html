@@ -15,6 +15,7 @@
         <em>12 artículos</em>
       </div>
       <div class="main">
+        <!--
         <app-card prod="Cookies" img="/cookies.jpg" [sty]="wandh" />
         <app-card prod="Tortas" img="/Torta.jpg" [sty]="wandh" />
         <app-card prod="Tortas" img="/Torta.jpg" [sty]="wandh" />
@@ -27,6 +28,14 @@
         <app-card prod="Cookies" img="/cookies.jpg" [sty]="wandh" />
         <app-card prod="Cookies" img="/cookies.jpg" [sty]="wandh" />
         <app-card prod="Panes" img="/Panes.jpg" [sty]="wandh" />
+          -->
+        @for (prod of products; track prod.id) {
+        <app-card
+          [prod]=prod
+          [img]="prod.img"
+          [sty]="wandh"
+        />
+        }
       </div>
     </div>
   </div>
