@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,16 +10,18 @@ import {Router} from '@angular/router';
 export class HeaderComponent {
   header = document.getElementById('Header')!;
   specialMenuItem = document.getElementById('Special')!;
-  constructor(private router:Router){}
+  constructor(private router: Router) {}
 
-  irA(link:string) {
-    console.log("Entra aqui")
-    this.router.navigateByUrl(link)
+  irA(link: string) {
+    console.log('Entra aqui');
+    //this.router.navigateByUrl(link);
+    this.router.navigate([link]).then(() => {window.location.reload()})
   }
 
   iraInicio() {
-    console.log("Entra aqui")
-    this.router.navigateByUrl("/")
+    console.log('Entra aqui');
+    //this.router.navigateByUrl('/');
+    this.router.navigate(['/']).then(() => {window.location.reload()})
   }
 
   ngOnInit() {
@@ -27,9 +29,9 @@ export class HeaderComponent {
     this.specialMenuItem = document.getElementById('Special')!;
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', [])
   mov() {
-    let scroll = window.scrollY;
+    let scroll = window.scrollY || document.documentElement.scrollTop;
     if (scroll > 0) {
       this.header.style.backgroundColor = 'white';
       this.header.style.color = 'var(--second-color)';
