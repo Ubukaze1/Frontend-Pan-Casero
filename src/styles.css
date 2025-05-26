@@ -1,3 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
 @import "../node_modules/primeflex/primeflex.css";
+
+@font-face {
+  font-family: "MyFont";
+  src: url('/public/font/ZillaSlab-Regular.ttf') format("truetype"),
+    url('/public/font/ZillaSlab-Bold.ttf') format("truetype"),
+    url('/public/font/ZillaSlab-Italic.ttf') format("truetype"),
+    url('/public/font/ZillaSlab-Medium.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*:after,
+*:before {
+  font-family: "MyFont";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+body {
+  font-size: 100%;
+  list-style-type: none;
+  background-color: fff0df;
+}

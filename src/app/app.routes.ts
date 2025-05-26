@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { ProductosComponent } from './components/productos/productos.component';
+import {MainpageComponent} from './components/mainpage/mainpage.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'productos',
-    pathMatch: 'full',
+    component: MainpageComponent,
   },
   {
     path: 'inventario',
