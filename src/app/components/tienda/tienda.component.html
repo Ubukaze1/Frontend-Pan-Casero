@@ -30,7 +30,7 @@
         <app-card prod="Panes" img="/Panes.jpg" [sty]="wandh" />
           -->
         @for (prod of products; track prod.id) {
-        <app-card
+        <app-cardmodal
           [prod]=prod
           [img]="prod.img"
           [sty]="wandh"

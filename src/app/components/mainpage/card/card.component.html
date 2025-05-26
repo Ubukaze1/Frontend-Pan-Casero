@@ -2,49 +2,8 @@
   <div class="card" [style]="sty">
     <img class="card-img" [src]="img" />
     <div class="card-body">
-      <h2 class="card-title">{{prod.nombre}}</h2>
-      <button class="card-button" (click)="abrirModal()">Ver mas</button>
+      <h2 class="card-title">{{prod}}</h2>
+      <button class="card-button">Ver mas</button>
     </div>
   </div>
 </div>
-
-<!-- Modal de pantalla completa -->
-<dialog #cardDialog class="full-screen-dialog">
-  <!-- Si quieres que clicar fuera cierre el modal: -->
-  <div class="dialog-overlay" (click)="cerrarModal()"></div>
-
-  <div class="dialog-box">
-    <!-- Botón de cerrar (X) -->
-    <button class="dialog-close" (click)="cerrarModal()">×</button>
-
-    <!-- Aquí cabe TODO el contenido que quieras mostrar fullscreen -->
-    <div class="dialog-content">
-      <div class="imagen">
-        <img [src]="prod.img" [alt]="prod.nombre" />
-      </div>
-      <div class="detalles">
-        <h2>{{ prod.nombre }}</h2>
-        <p class="precio">$ {{ prod.precio }}</p>
-        <p class="descripcion">
-          {{ prod.description || 'Sin descripción disponible.' }}
-        </p>
-
-        <!-- Ejemplo de selector de cantidad -->
-        <div class="quantity-selector">
-          <span>CANTIDAD</span>
-          <div class="qty-buttons">
-            <button type="button" class="qty-btn minus">−</button>
-            <input type="number" min="1" value="1" class="qty-input" />
-            <button type="button" class="qty-btn plus">+</button>
-          </div>
-        </div>
-
-        <!-- Botones de acción -->
-        <div class="actions">
-          <button type="button" class="btn-add-cart">Agregar al carrito</button>
-          <button type="button" class="btn-view-details">Ver detalles</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</dialog>

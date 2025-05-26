@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {HeaderComponent} from '../mainpage/header/header.component';
 import {FooterComponent} from '../mainpage/footer/footer.component';
-import {CardComponent} from '../mainpage/card/card.component';
 import {Tienda} from '../../../interface/product';
+import {CardmodalComponent} from './cardmodal/cardmodal.component';
 
 @Component({
   selector: 'app-tienda',
-  imports: [ HeaderComponent, FooterComponent, CardComponent],
+  imports: [ HeaderComponent, FooterComponent, CardmodalComponent],
   templateUrl: './tienda.component.html',
   styleUrl: './tienda.component.css'
 })
