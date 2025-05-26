@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,17 @@ import { Component, HostListener } from '@angular/core';
 export class HeaderComponent {
   header = document.getElementById('Header')!;
   specialMenuItem = document.getElementById('Special')!;
+  constructor(private router:Router){}
+
+  irA(link:string) {
+    console.log("Entra aqui")
+    this.router.navigateByUrl(link)
+  }
+
+  iraInicio() {
+    console.log("Entra aqui")
+    this.router.navigateByUrl("/")
+  }
 
   ngOnInit() {
     this.header = document.getElementById('Header')!;

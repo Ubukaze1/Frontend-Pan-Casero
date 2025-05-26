@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
 
+  @Input() sty = ""
   @Input() img = ""
   @Input() prod = "Producto"
   ngOnInit() {}

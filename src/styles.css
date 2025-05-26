@@ -4,10 +4,10 @@
 
 @font-face {
   font-family: "MyFont";
-  src: url('/public/font/ZillaSlab-Regular.ttf') format("truetype"),
-    url('/public/font/ZillaSlab-Bold.ttf') format("truetype"),
-    url('/public/font/ZillaSlab-Italic.ttf') format("truetype"),
-    url('/public/font/ZillaSlab-Medium.ttf') format("truetype");
+  src: url('/ZillaSlab-Regular.ttf') format("truetype"),
+    url('/ZillaSlab-Bold.ttf') format("truetype"),
+    url('/ZillaSlab-Italic.ttf') format("truetype"),
+    url('/ZillaSlab-Medium.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
 }
