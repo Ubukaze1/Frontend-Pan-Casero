@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {HeaderComponent} from '../mainpage/header/header.component';
 import {FooterComponent} from '../mainpage/footer/footer.component';
 import {CardComponent} from '../mainpage/card/card.component';

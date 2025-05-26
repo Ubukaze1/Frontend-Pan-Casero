@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -12,5 +12,11 @@ export class CardComponent {
   @Input() img = ""
   @Input() prod = "Producto"
   ngOnInit() {}
+
+  @Output() verMas: EventEmitter<any> = new EventEmitter()
+
+  onVerMasClick() {
+    this.verMas.emit()
+  }
 
 }

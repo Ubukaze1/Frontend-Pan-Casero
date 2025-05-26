@@ -34,7 +34,6 @@ export class HeaderComponent {
       this.header.style.backgroundColor = 'white';
       this.header.style.color = 'var(--second-color)';
       this.specialMenuItem.classList.add('special-scrolled');
-      console.log('Entra');
     } else {
       this.header.style.backgroundColor = 'transparent';
       this.header.style.color = 'white';
