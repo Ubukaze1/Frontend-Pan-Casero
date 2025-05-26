@@ -35,7 +35,7 @@
       }
       .card-button {
         color: white;
-        background: #eb5c5f;
+        background-color: #eb5757;
         padding: 5px 0px;
         width: 100px;
         border-radius: 5px;
@@ -44,6 +44,12 @@
         outline: none;
         font-weight: bold;
         cursor: pointer;
+        transition: all 100ms;
+        margin-top: 10px;
+        &:hover {
+          background-color: #ef8687;
+          transform: translateY(-5px);
+        }
       }
     }
   }
@@ -52,3 +58,4 @@
 .component-card .card:hover .card-body {
   right: 0;
 }
+
