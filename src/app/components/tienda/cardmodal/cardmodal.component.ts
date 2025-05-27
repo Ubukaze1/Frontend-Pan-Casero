@@ -1,20 +1,15 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Tienda } from '../../../../interface/product';
 
 @Component({
   selector: 'app-cardmodal',
   imports: [],
   templateUrl: './cardmodal.component.html',
-  styleUrl: './cardmodal.component.css'
+  styleUrl: './cardmodal.component.css',
 })
 export class CardmodalComponent {
-
-
+  cantidad: number = 1;
+  mensaje = ""
 
   @Input() sty = '';
   @Input() img = '';
@@ -42,4 +37,20 @@ export class CardmodalComponent {
   cerrarModal() {
     this.dialogRef.nativeElement.close();
   }
+  incrementar() {
+    this.cantidad++;
+  }
+
+  // Método para decrementar (con tope mínimo en 1, o en 0 si prefieres)
+  decrementar() {
+    if (this.cantidad > 1) {
+      this.cantidad--;
+    }
+  }
+
+  mensajeFun() {
+
+    this.mensaje = "¡Este producto ha sido agregado al carrito!"
+  }
+
 }
