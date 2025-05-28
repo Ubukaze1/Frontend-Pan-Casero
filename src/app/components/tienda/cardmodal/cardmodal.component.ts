@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Tienda } from '../../../../interface/product';
+import {CartService} from '../service/cart.service';
+import {CartItem} from '../interface/cart-item';
 
 @Component({
   selector: 'app-cardmodal',
@@ -24,10 +26,9 @@ export class CardmodalComponent {
 
   @ViewChild('cardDialog') dialogRef!: ElementRef<HTMLDialogElement>;
 
-  ngAfterViewInit() {
-    // Asegúrate de que el <dialog> existe antes de manipularlo.
-    // Nada que hacer aquí explícitamente, solo que Angular lo inicialice.
-  }
+  constructor(private cartService: CartService) {}
+
+
 
   abrirModal() {
     // .showModal() abre el <dialog> en pantalla
@@ -48,9 +49,22 @@ export class CardmodalComponent {
     }
   }
 
-  mensajeFun() {
+  agregarAlCarrito() {
 
-    this.mensaje = "¡Este producto ha sido agregado al carrito!"
+        // 1) Armar el objeto CartItem
+    const nuevoItem: CartItem = {
+      id: this.prod.id,
+      nombre: this.prod.nombre,
+      precio: this.prod.precio,
+      img: this.prod.img,
+      cantidad: this.cantidad
+    };
+
+    // 2) Llamar al servicio
+    this.cartService.addToCart(nuevoItem);
+
+    // 3) Mostrar un mensaje breve al usuario
+    this.mensaje = '✔ Agregado al carrito';
   }
 
 }

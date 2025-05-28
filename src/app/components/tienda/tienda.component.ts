@@ -16,18 +16,18 @@ export class TiendaComponent {
 
   ngOnInit() {
     this.products = [
-      { id: 1, nombre: 'Pan', precio: 4000, description: "Un buenn pan1", img: "/Pan1.jpg" },
-      { id: 2, nombre: 'Pan', precio: 4000, description: "Un buenn pan2", img: "/Pan1.jpg" },
-      { id: 3, nombre: 'Pan', precio: 4000, description: "Un buenn pan3", img: "/Pan1.jpg" },
-      { id: 4, nombre: 'Pan', precio: 4000, description: "Un buenn pan4", img: "/Pan1.jpg" },
-      { id: 5, nombre: 'Pan', precio: 4000, description: "Un buenn pan5", img: "/Pan1.jpg" },
-      { id: 6, nombre: 'Pan', precio: 4000, description: "Un buenn pan6", img: "/Pan1.jpg" },
-      { id: 7, nombre: 'Pan', precio: 4000, description: "Un buenn pan7", img: "/Pan1.jpg" },
-      { id: 8, nombre: 'Pan', precio: 4000, description: "Un buenn pan8", img: "/Pan1.jpg" },
-      { id: 9, nombre: 'Pan', precio: 4000, description: "Un buenn pan9", img: "/Pan1.jpg" },
-      { id: 10, nombre: 'Pan', precio: 4000, description: "Un buenn pan10", img: "/Pan1.jpg" },
-      { id: 11, nombre: 'Pan', precio: 4000, description: "Un buenn pan11", img: "/Pan1.jpg" },
-      { id: 12, nombre: 'Pan', precio: 4000, description: "Un buenn pan12", img: "/Pan1.jpg" },
+      { id: "1", nombre: 'Cookies', precio: 4000, description: "Una buena galleta", img: "/cookies.jpg" },
+      { id: "2", nombre: 'Croissants', precio: 5000, description: "Un buen Croissants", img: "/Croissants.jpg" },
+      { id: "3", nombre: 'Croissants', precio: 5000, description: "Un buen Croissants", img: "/Croissants.jpg" },
+      { id: "4", nombre: 'Panes', precio: 2000, description: "Un buenn pan", img: "/Panes.jpg" },
+      { id: "5", nombre: 'Panes', precio: 2000, description: "Un buenn pan", img: "/Panes.jpg" },
+      { id: "6", nombre: 'Cookies', precio: 4000, description: "Una buena galleta", img: "/cookies.jpg" },
+      { id: "7", nombre: 'Cookies', precio: 4000, description: "Una Buena galleta", img: "/cookies.jpg" },
+      { id: "8", nombre: 'Torta', precio: 8000, description: "Un buena Torta", img: "/Torta.jpg" },
+      { id: "9", nombre: 'Torta', precio: 8000, description: "Un buena Torta", img: "/Torta.jpg" },
+      { id: "10", nombre: 'Panes', precio: 2000, description: "Un buen pan", img: "/Panes.jpg" },
+      { id: "11", nombre: 'Panes', precio: 2000, description: "Un buen pan", img: "/Panes.jpg" },
+      { id: "12", nombre: 'Cookies', precio: 4000, description: "Una Buena galletae", img: "/cookies.jpg" },
     ];
   }
 }

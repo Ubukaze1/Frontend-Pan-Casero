@@ -1,0 +1,155 @@
+.component {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+}
+
+.centro {
+  margin-top: 150px;
+}
+
+.cart-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cart-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.cart-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  padding: 1 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  font-weight: 600;
+}
+
+.product-units {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #fca311;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  margin-top: 0.25rem;
+}
+
+.product-price,
+.product-total {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.product-quantity input {
+  width: 50px;
+  padding: 4px;
+  text-align: center;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.checkout-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.checkout-button {
+  background-color: #fca311;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #e48900;
+}
+
+.subtotal-line {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.subtotal-label {
+  font-weight: 500;
+}
+
+.subtotal-amount {
+  font-weight: 600;
+}
+
+/* Estilos para el mensaje de carrito vacío */
+.empty-message {
+  text-align: center;
+  margin: 13rem 0;
+  font-size: 5rem;
+  color: white;          /* Coincide con el color general del texto */
+}
+
+.empty-message a {
+  color: #8c3200;          /* Mismo tono de enlace usado en el sitio */
+  text-decoration: underline;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.empty-message a:hover {
+  color: #5a463c;          /* Una versión más oscura al pasar el ratón */
+}

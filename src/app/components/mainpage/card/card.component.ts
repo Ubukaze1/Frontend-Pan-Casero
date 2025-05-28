@@ -1,7 +1,5 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -15,4 +13,12 @@ export class CardComponent {
   @Input() prod = '';
   ngOnInit() {}
 
+  constructor(private router: Router) {}
+
+  irA(link: string) {
+    console.log("Entra Aqui")
+    this.router.navigate([link]).then(() => {
+      window.location.reload();
+    });
+  }
 }

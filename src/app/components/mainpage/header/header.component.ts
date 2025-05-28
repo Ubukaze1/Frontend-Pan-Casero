@@ -1,6 +1,8 @@
 import {NgIf} from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import {Subscription} from 'rxjs';
+import {CartService} from '../../tienda/service/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,9 @@ export class HeaderComponent {
   icon = document.getElementById('icon')!;
   specialMenuItem = document.getElementById('Special')!;
   cartCount: number = 0;
-  constructor(private router: Router) {}
+  private countSub!: Subscription;
+
+  constructor(private router: Router, private cartService: CartService) {}
 
   irA(link: string) {
     console.log('Entra aqui');
@@ -35,6 +39,17 @@ export class HeaderComponent {
     this.header = document.getElementById('Header')!;
     this.specialMenuItem = document.getElementById('Special')!;
     this.icon = document.getElementById('icon')!;
+
+    this.countSub = this.cartService.count$.subscribe(count => {
+      this.cartCount = count;
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.countSub) {
+      this.countSub.unsubscribe();
+    }
   }
 
   @HostListener('window:scroll', [])
@@ -52,5 +67,10 @@ export class HeaderComponent {
       this.icon.style.fill = 'white';
     }
   }
+
+
+
+
+
 
 }
