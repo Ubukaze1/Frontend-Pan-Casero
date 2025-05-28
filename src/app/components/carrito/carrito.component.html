@@ -1,0 +1,59 @@
+<div class="component">
+  <app-header />
+  <div class="centro" >
+    <div class="cart-wrapper" *ngIf="carrito.length > 0; else carritoVacio">
+      <h2 class="cart-title">Carrito de compra</h2>
+
+      <div class="cart-table-header">
+        <span>Producto</span>
+        <span>Precio</span>
+        <span>Cantidad</span>
+        <span>Total</span>
+      </div>
+
+      <div *ngFor="let item of carrito" class="cart-item">
+        <div class="product-info">
+          <img [src]="item.img" [alt]="item.nombre" class="product-img" />
+          <div class="product-details">
+            <p class="product-name">{{ item.nombre }}</p>
+            <button class="remove-btn" (click)="quitarProducto(item)">
+              Quitar
+            </button>
+          </div>
+        </div>
+        <div class="product-price">{{ item.precio }}</div>
+        <div class="product-quantity">
+          <input
+            type="number"
+            min="0"
+            [(ngModel)]="item.cantidad"
+            (ngModelChange)="cambiarCantidad(item.id, $event)"
+          />
+        </div>
+        <div class="product-total">{{ (item.precio * item.cantidad) }}</div>
+      </div>
+
+      <div class="subtotal-section">
+        <div class="subtotal-line">
+          <span class="subtotal-label">Subtotal</span>
+          <span class="subtotal-amount">{{ subtotal }}</span>
+        </div>
+      </div>
+
+      <div class="checkout-footer">
+        <button class="checkout-button" (click)="finalizarPedido()">
+          FINALIZAR PEDIDO
+        </button>
+      </div>
+
+    </div>
+
+  <ng-template #carritoVacio>
+    <p class="empty-message">
+      Tu carrito está vacío. <a (click)="irA('tienda')">Empieza a comprar</a>.
+    </p>
+  </ng-template>
+    <!-- Botón de finalización de pago -->
+  </div>
+  <app-footer />
+</div>

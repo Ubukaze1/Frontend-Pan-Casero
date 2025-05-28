@@ -23,7 +23,7 @@ export interface ListaProductos {
 }
 
 export interface Tienda {
-  id: number;
+  id: string;
   nombre: string;
   precio: number;
   description: string;

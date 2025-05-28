@@ -3,6 +3,7 @@ import { InventarioComponent } from './components/inventario/inventario.componen
 import { ProductosComponent } from './components/productos/productos.component';
 import {MainpageComponent} from './components/mainpage/mainpage.component';
 import {TiendaComponent} from './components/tienda/tienda.component';
+import {CarritoComponent} from './components/carrito/carrito.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'productos',
     component: ProductosComponent,
+  },
+  {
+    path: 'carrito',
+    component: CarritoComponent,
   },
 ];
