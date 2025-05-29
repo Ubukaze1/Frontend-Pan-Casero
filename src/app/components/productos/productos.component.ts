@@ -1,41 +1,75 @@
-import { Component } from '@angular/core';
-import { ListaProductos } from '../../../interface/product';
-import { ProductService } from '../../../service/product.service';
-import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { Subscription } from 'rxjs';
+
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
-import {FormsModule} from '@angular/forms';
-import {InputTextModule} from 'primeng/inputtext';
-import {ButtonModule} from 'primeng/button';
+import { TableModule } from 'primeng/table';
+
+import { ProductService } from '../productos/services/product.service';
+import { SweetAlertService } from '../shared/sweet-alert.service';
 
 
 @Component({
   selector: 'app-productos',
-  imports: [TableModule, CommonModule, PanelModule,FormsModule,InputTextModule,ButtonModule],
+  imports: [TableModule, CommonModule, PanelModule, FormsModule, InputTextModule, ButtonModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
   providers: [ProductService],
 })
 export class ProductosComponent {
-  value: string
-  products!: ListaProductos[];
+  private readonly sweetAlertService = inject(SweetAlertService);
+  private readonly productService = inject(ProductService);
 
-  constructor(private productService: ProductService) {
-    this.value = ""
+  subscription!: Subscription; //TODO 
+  listProducts: any[] = [];
+  value!: string
+
+  pageSizeOptions: number[] = [5, 10, 25, 50, 100];
+  limit: number = this.pageSizeOptions[0];
+  length: number = 0;
+  skip: number = 0;
+
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.getListProducts();
+
+    this.subscription = this.productService.getIsList$().subscribe({
+      next: (resp) => {
+        if (resp) {
+          this.getListProducts();
+        }
+      },
+      error: (err) => {
+        this.sweetAlertService.error(err);
+      }
+    });
   }
 
-  ngOnInit() {
-    this.products = [
-      { producto: 'Baguette', categoria: 'Pan', precio: 2500, inventario: 100 },
-      { producto: 'Croissant', categoria: 'Pan', precio: 3000, inventario: 80 },
-      { producto: 'Pretzel', categoria: 'Pan', precio: 1500, inventario: 120 },
-      { producto: 'Scone', categoria: 'Pan', precio: 2250, inventario: 90 },
-      { producto: 'Biscuit', categoria: 'Pan', precio: 2000, inventario: 110 },
-      { producto: 'Muffin', categoria: 'Pan', precio: 2750, inventario: 95 },
-      { producto: 'Donut', categoria: 'Pan', precio: 1750, inventario: 115 },
-      { producto: 'Cookie', categoria: 'Pan', precio: 1250, inventario: 125 },
-      { producto: 'Loaf', categoria: 'Pan', precio: 4000, inventario: 75 },
-      { producto: 'Pie', categoria: 'Pan', precio: 5000, inventario: 70 },
-    ];
+  getListProducts() {
+    this.sweetAlertService.load();
+
+    this.productService.list({ limit: this.limit.toString(), offset: this.skip.toString() })
+      .subscribe({
+        next: (resp) => {
+          if (resp.statusCode === 200) {
+            this.listProducts = resp.data.list;
+            this.length = resp.data.length;
+          } else {
+            this.listProducts = [];
+            this.length = 0;
+            this.sweetAlertService.error(resp.message);
+          }
+          this.sweetAlertService.close();
+        },
+        error: (err) => {
+          this.sweetAlertService.error(err);
+        }
+      });
   }
 }
