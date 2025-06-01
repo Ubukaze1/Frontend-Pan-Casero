@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import {Subscription} from 'rxjs';
 import {CartService} from '../../tienda/service/cart.service';
+import { KeycloakService } from '../../shared/auth.keycloak.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,13 @@ export class HeaderComponent {
   cartCount: number = 0;
   private countSub!: Subscription;
 
-  constructor(private router: Router, private cartService: CartService) {}
+  constructor(
+    private router: Router, 
+    private cartService: CartService,
+    private keycloakService: KeycloakService // Assuming you have a KeycloakService for authentication
+  ) {}
+
+  isLoggedIn = false
 
   irA(link: string) {
     console.log('Entra aqui');
@@ -35,6 +42,14 @@ export class HeaderComponent {
     });
   }
 
+  irAIniciarSesion() {
+    this.keycloakService.login();
+  }
+
+  cerrarSesion() {
+    this.keycloakService.logout();
+  }
+
   ngOnInit() {
     this.header = document.getElementById('Header')!;
     this.specialMenuItem = document.getElementById('Special')!;
@@ -43,6 +58,8 @@ export class HeaderComponent {
     this.countSub = this.cartService.count$.subscribe(count => {
       this.cartCount = count;
     });
+
+    this.isLoggedIn = this.keycloakService.isLoggedIn();
   }
 
 
