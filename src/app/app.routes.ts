@@ -4,6 +4,7 @@ import { ProductosComponent } from './components/productos/productos.component';
 import {MainpageComponent} from './components/mainpage/mainpage.component';
 import {TiendaComponent} from './components/tienda/tienda.component';
 import {CarritoComponent} from './components/carrito/carrito.component';
+import { AuthGuard } from './components/shared/auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,14 +17,14 @@ export const routes: Routes = [
   },
   {
     path: 'inventario',
-    component: InventarioComponent,
+    component: InventarioComponent, canActivate: [AuthGuard] 
   },
   {
     path: 'productos',
-    component: ProductosComponent,
+    component: ProductosComponent, canActivate: [AuthGuard]
   },
   {
     path: 'carrito',
-    component: CarritoComponent,
+    component: CarritoComponent, canActivate: [AuthGuard]
   },
 ];

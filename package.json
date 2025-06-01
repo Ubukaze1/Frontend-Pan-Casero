@@ -20,6 +20,8 @@
     "@primeng/themes": "^19.1.2",
     "@sweetalert2/ngx-sweetalert2": "^13.0.0",
     "axios": "^1.9.0",
+    "keycloak-angular": "^19.0.2",
+    "keycloak-js": "^26.2.0",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^19.1.2",
