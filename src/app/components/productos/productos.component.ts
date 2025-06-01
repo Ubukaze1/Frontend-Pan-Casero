@@ -8,25 +8,20 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { delay, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { FileUpload } from 'primeng/fileupload';
+import { InputNumber } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
-import { FileUpload } from 'primeng/fileupload';
-import { FileUploadEvent } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
-import { InputNumber } from 'primeng/inputnumber';
 
-import { MessageService } from 'primeng/api';
 import { ProductService } from '../productos/services/product.service';
 import { SweetAlertService } from '../shared/sweet-alert.service';
-
-import { UploadEvent } from './interface/Upload';
-import { Producto } from './interface/producto';
-
 @Component({
   selector: 'app-productos',
   imports: [
@@ -46,9 +41,13 @@ import { Producto } from './interface/producto';
   styleUrl: './productos.component.css',
   providers: [ProductService, MessageService],
 })
+
 export class ProductosComponent {
+
+  constructor(private messageService: MessageService) { }
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly productService = inject(ProductService);
+
   visible: boolean = false;
   @ViewChild('fileUploader') fileUploader!: FileUpload;
 
@@ -62,13 +61,12 @@ export class ProductosComponent {
   skip: number = 0;
 
   formProductos = new FormGroup({
-    nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    precio: new FormControl('', [Validators.required, Validators.min(1)]),
-    descripción: new FormControl('', Validators.required),
-    cantidad: new FormControl('', [Validators.required, Validators.min(1)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    price: new FormControl('', [Validators.required, Validators.min(1)]),
+    description: new FormControl('', Validators.required),
+    quantity: new FormControl('', [Validators.required, Validators.min(1)]),
+    image: new FormControl(''),
   });
-
-  constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getListProducts();
@@ -95,12 +93,13 @@ export class ProductosComponent {
           if (resp.statusCode === 200) {
             this.listProducts = resp.data.list;
             this.length = resp.data.length;
+            this.sweetAlertService.close();
+
           } else {
             this.listProducts = [];
             this.length = 0;
-            this.sweetAlertService.error(resp.message);
+            this.sweetAlertService.information(resp.message);
           }
-          this.sweetAlertService.close();
         },
         error: (err) => {
           this.sweetAlertService.error(err);
@@ -118,20 +117,58 @@ export class ProductosComponent {
 
   uploadedFiles: any[] = [];
 
-  obtenerImgUrl(event: FileUploadEvent) {
-    console.log('Entro');
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
+  obtenerImgUrl(event: any) {
+    const file = event.files[0];
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'productos');
+
+    fetch('https://api.cloudinary.com/v1_1/dtskjaarj/image/upload', {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        const imageUrl = data.secure_url;
+
+        this.formProductos.get('image')?.setValue(imageUrl);
+
+        this.uploadedFiles.push(file);
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Imagen subida correctamente',
+          detail: 'URL guardada en el formulario'
+        });
+
+        // Puedes continuar con lo que necesites (crear producto, etc.)
+        this.agregarProductoALaLista(imageUrl);
+      })
+      .catch(err => {
+        console.error('Error al subir a Cloudinary', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo subir la imagen'
+        });
+      });
     }
 
-    this.messageService.add({
-      severity: 'info',
-      summary: 'File Uploaded',
-      detail: '',
-    });
+  // obtenerImgUrl(event: FileUploadEvent) {
+  //   console.log('Entro');
+  //   for (let file of event.files) {
+  //     this.uploadedFiles.push(file);
+  //   }
 
-    this.agregarProductoALaLista('');
-  }
+  //   this.messageService.add({
+  //     severity: 'info',
+  //     summary: 'File Uploaded',
+  //     detail: '',
+  //   });
+
+  //   this.agregarProductoALaLista('');
+  // }
 
   salvarProducto(): void {
     // Primero validamos que el formulario sea válido
@@ -157,17 +194,33 @@ export class ProductosComponent {
       });
       return;
     }
+
+    this.sweetAlertService.load();
+
+    this.productService.create(this.formProductos.value).subscribe({
+      next: (resp) => {
+        if (resp.statusCode === 201) {
+          this.productService.sendIsList$(true);
+        } else {
+          this.sweetAlertService.information(resp.message);
+        }
+      },
+      error: (err) => {
+        console.error({ 'create-product': err.message });
+      }
+    });
+
   }
 
   agregarProductoALaLista(imageUrls: string): void {
     // Obtenemos los valores del FormGroup
     const formValues = this.formProductos.value;
 
-    const nuevoProducto: Producto = {
-      nombre: formValues.nombre,
-      precio: formValues.precio,
-      descripción: formValues.descripción,
-      cantidad: formValues.cantidad,
+    const nuevoProducto: any = {
+      name: formValues.name,
+      price: formValues.price,
+      description: formValues.description,
+      quantity: formValues.quantity,
       imageUrls: imageUrls,
     };
 
@@ -176,8 +229,9 @@ export class ProductosComponent {
     this.messageService.add({
       severity: 'success',
       summary: 'Producto creado',
-      detail: `${nuevoProducto.nombre} se ha guardado correctamente`,
+      detail: `${nuevoProducto.name} se ha guardado correctamente`,
     });
+
     setTimeout(() => {
       this.visible = false;
       this.formProductos.reset();
