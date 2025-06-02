@@ -24,8 +24,9 @@ export interface ListaProductos {
 
 export interface Tienda {
   id: string;
-  nombre: string;
-  precio: number;
+  name: string;
+  price: number;
   description: string;
-  img: string;
+  image: string;
+  quantity: number
 }

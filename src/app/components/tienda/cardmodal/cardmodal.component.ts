@@ -14,13 +14,13 @@ import { CartService } from '../service/cart.service';
 })
 export class CardmodalComponent {
   cantidad: number = 1;
-  mensaje = ""
+  mensaje = '';
 
   @Input() sty = '';
   @Input() img = '';
   @Input() nom = '';
   @Input() prod!: Tienda;
-  ngOnInit() { }
+  ngOnInit() {}
 
   onVerMasClick(produ: Tienda) {
     console.log(produ);
@@ -29,7 +29,7 @@ export class CardmodalComponent {
 
   @ViewChild('cardDialog') dialogRef!: ElementRef<HTMLDialogElement>;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService) {}
 
   abrirModal() {
     // .showModal() abre el <dialog> en pantalla
@@ -39,8 +39,11 @@ export class CardmodalComponent {
   cerrarModal() {
     this.dialogRef.nativeElement.close();
   }
-  incrementar() {
-    this.cantidad++;
+  incrementar(tope: number) {
+    if (this.cantidad < tope) {
+      this.cantidad++;
+    }
+    return;
   }
 
   // Método para decrementar (con tope mínimo en 1, o en 0 si prefieres)
@@ -51,14 +54,13 @@ export class CardmodalComponent {
   }
 
   agregarAlCarrito() {
-
     // 1) Armar el objeto CartItem
     const nuevoItem: CartItem = {
       id: this.prod.id,
-      nombre: this.prod.nombre,
-      precio: this.prod.precio,
-      img: this.prod.img,
-      cantidad: this.cantidad
+      nombre: this.prod.name,
+      precio: this.prod.price,
+      img: this.prod.image,
+      cantidad: this.cantidad,
     };
 
     // 2) Llamar al servicio
@@ -67,5 +69,4 @@ export class CardmodalComponent {
     // 3) Mostrar un mensaje breve al usuario
     this.mensaje = '✔ Agregado al carrito';
   }
-
 }

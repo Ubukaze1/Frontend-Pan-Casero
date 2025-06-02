@@ -2,7 +2,7 @@
   <div class="card" [style]="sty">
     <img class="card-img" [src]="img" />
     <div class="card-body">
-      <h2 class="card-title">{{prod.nombre}}</h2>
+      <h2 class="card-title">{{prod.name}}</h2>
       <button class="card-button" (click)="abrirModal()">Ver mas</button>
     </div>
   </div>
@@ -20,11 +20,11 @@
     <!-- Aquí cabe TODO el contenido que quieras mostrar fullscreen -->
     <div class="dialog-content">
       <div class="imagen">
-        <img [src]="prod.img" [alt]="prod.nombre" />
+        <img [src]="prod.image" [alt]="prod.name" />
       </div>
       <div class="detalles">
-        <h2>{{ prod.nombre }}</h2>
-        <p class="precio">$ {{ prod.precio }}</p>
+        <h2>{{ prod.name }}</h2>
+        <p class="precio">$ {{ prod.price }}</p>
         <p class="descripcion">
           {{ prod.description || 'Sin descripción disponible.' }}
         </p>
@@ -36,7 +36,7 @@
             <button type="button" class="qty-btn minus" (click)="decrementar()">−</button>
 
             <input type="number" min="1" [value]="cantidad" class="qty-input" />
-            <button type="button" class="qty-btn plus" (click)="incrementar()">+</button>
+            <button type="button" class="qty-btn plus" (click)="incrementar(prod.quantity)">+</button>
           </div>
         </div>
 

@@ -12,7 +12,7 @@
             <option>Precio, mayor a menor</option>
           </select>
         </div>
-        <em>12 artículos</em>
+        <em>{{cantidadArticulos}} artículos</em>
       </div>
       <div class="main">
         <!--
@@ -29,10 +29,10 @@
         <app-card prod="Cookies" img="/cookies.jpg" [sty]="wandh" />
         <app-card prod="Panes" img="/Panes.jpg" [sty]="wandh" />
           -->
-        @for (prod of products; track prod.id) {
+        @for (prod of listProducts; track prod.id) {
         <app-cardmodal
           [prod]=prod
-          [img]="prod.img"
+          [img]="prod.image"
           [sty]="wandh"
         />
         }

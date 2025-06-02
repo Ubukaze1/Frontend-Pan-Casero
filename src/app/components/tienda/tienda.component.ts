@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {HeaderComponent} from '../mainpage/header/header.component';
 import {FooterComponent} from '../mainpage/footer/footer.component';
-import {Tienda} from '../../../interface/product';
 import {CardmodalComponent} from './cardmodal/cardmodal.component';
+import {SweetAlertService} from '../shared/sweet-alert.service';
+import {TiendaService} from './service/tienda.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-tienda',
@@ -12,22 +14,57 @@ import {CardmodalComponent} from './cardmodal/cardmodal.component';
 })
 export class TiendaComponent {
   wandh = "width: 300px ;height: 235px; border-radius: 0px;"
-  products!: Tienda[];
+  private readonly sweetAlertService = inject(SweetAlertService);
+  private readonly tiendaService = inject(TiendaService);
 
-  ngOnInit() {
-    this.products = [
-      { id: "1", nombre: 'Cookies', precio: 4000, description: "Una buena galleta", img: "/cookies.jpg" },
-      { id: "2", nombre: 'Croissants', precio: 5000, description: "Un buen Croissants", img: "/Croissants.jpg" },
-      { id: "3", nombre: 'Croissants', precio: 5000, description: "Un buen Croissants", img: "/Croissants.jpg" },
-      { id: "4", nombre: 'Panes', precio: 2000, description: "Un buenn pan", img: "/Panes.jpg" },
-      { id: "5", nombre: 'Panes', precio: 2000, description: "Un buenn pan", img: "/Panes.jpg" },
-      { id: "6", nombre: 'Cookies', precio: 4000, description: "Una buena galleta", img: "/cookies.jpg" },
-      { id: "7", nombre: 'Cookies', precio: 4000, description: "Una Buena galleta", img: "/cookies.jpg" },
-      { id: "8", nombre: 'Torta', precio: 8000, description: "Un buena Torta", img: "/Torta.jpg" },
-      { id: "9", nombre: 'Torta', precio: 8000, description: "Un buena Torta", img: "/Torta.jpg" },
-      { id: "10", nombre: 'Panes', precio: 2000, description: "Un buen pan", img: "/Panes.jpg" },
-      { id: "11", nombre: 'Panes', precio: 2000, description: "Un buen pan", img: "/Panes.jpg" },
-      { id: "12", nombre: 'Cookies', precio: 4000, description: "Una Buena galletae", img: "/cookies.jpg" },
-    ];
+  subscription!: Subscription; //TODO
+  listProducts: any[] = [];
+  value!: string;
+  cantidadArticulos:number = 0
+
+  pageSizeOptions: number[] = [5, 10, 25, 50, 100];
+  limit: number = this.pageSizeOptions[0];
+  length: number = 0;
+  skip: number = 0;
+
+  ngOnInit(): void {
+    this.getListProducts();
+
+    this.subscription = this.tiendaService.getIsList$().subscribe({
+      next: (resp) => {
+        if (resp) {
+          this.getListProducts();
+        }
+      },
+      error: (err) => {
+        this.sweetAlertService.error(err);
+      },
+    });
   }
+
+
+  getListProducts() {
+    this.sweetAlertService.load();
+
+    this.tiendaService
+      .list({ limit: this.limit.toString(), offset: this.skip.toString() })
+      .subscribe({
+        next: (resp) => {
+          if (resp.statusCode === 200) {
+            this.listProducts = resp.data.list;
+            this.length = resp.data.length;
+            this.cantidadArticulos = this.length
+            this.sweetAlertService.close();
+          } else {
+            this.listProducts = [];
+            this.length = 0;
+            this.sweetAlertService.information(resp.message);
+          }
+        },
+        error: (err) => {
+          this.sweetAlertService.error(err);
+        },
+      });
+  }
+
 }
