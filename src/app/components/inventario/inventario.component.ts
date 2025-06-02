@@ -36,7 +36,6 @@ import { InventarioService } from './services/inventario.service';
     InputTextModule,
     ButtonModule,
     Dialog,
-    FileUpload,
     InputNumber,
     ToastModule,
     ReactiveFormsModule,

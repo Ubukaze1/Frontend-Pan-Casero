@@ -1,26 +1,19 @@
-import { CommonModule, NgIf } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
-import { FileUpload } from 'primeng/fileupload';
-import { InputNumber } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 import { MessageService } from 'primeng/api';
-import { ProductService } from '../productos/services/product.service';
 import { SweetAlertService } from '../shared/sweet-alert.service';
 
 import { HeaderComponent } from '../header/header.component';
@@ -35,13 +28,9 @@ import {VentasService} from './service/ventas.service';
     FormsModule,
     InputTextModule,
     ButtonModule,
-    Dialog,
-    FileUpload,
-    InputNumber,
     ToastModule,
     ReactiveFormsModule,
     HeaderComponent,
-    NgIf,
   ],
   templateUrl: './ventas.component.html',
   styleUrl: './ventas.component.css',
