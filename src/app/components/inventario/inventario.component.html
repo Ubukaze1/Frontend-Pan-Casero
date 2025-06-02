@@ -32,7 +32,7 @@
         />
       </div>
       <p-table
-        [value]="listProducts"
+        [value]="listinventary"
         stripedRows
         [tableStyle]="{'min-width': '50rem'}"
       >
@@ -47,7 +47,7 @@
           <tr>
             <td>{{ producto.name }}</td>
             <td>{{ producto.quantity }}</td>
-            <td><button>Editar</button></td>
+          <td><div class="button-div "><button class="button-editar" (click)="abrirModalModificar(producto)">Editar</button></div></td>
           </tr>
         </ng-template>
       </p-table>
@@ -68,7 +68,7 @@
               id="username"
               class="flex-auto"
               autocomplete="off"
-              formControlName="nombre"
+              formControlName="name"
             />
           </div>
           <div class="flex items-center gap-4 mb-4">
@@ -80,7 +80,7 @@
               id="cantidad"
               class="flex-auto"
               autocomplete="off"
-              formControlName="cantidad"
+              formControlName="quantity"
             />
           </div>
           <p-toast />

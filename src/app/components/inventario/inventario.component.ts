@@ -59,7 +59,7 @@ export class InventarioComponent {
   @ViewChild('fileUploader') fileUploader!: FileUpload;
 
   subscription!: Subscription; //TODO
-  listProducts: any[] = [];
+  listinventary: any[] = [];
   value!: string;
 
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
@@ -72,13 +72,20 @@ export class InventarioComponent {
     quantity: new FormControl('', [Validators.required, Validators.min(1)]),
   });
 
+  abrirModalModificar(prod: any) {
+    this.visible = true;
+    console.log(prod)
+    this.formProductos.controls['name'].setValue(prod.name || " ")
+    this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
+  }
+
   ngOnInit(): void {
-    this.getListProducts();
+    this.getListinventary();
 
     this.subscription = this.inventaryService.getIsList$().subscribe({
       next: (resp) => {
         if (resp) {
-          this.getListProducts();
+          this.getListinventary();
         }
       },
       error: (err) => {
@@ -87,7 +94,7 @@ export class InventarioComponent {
     });
   }
 
-  getListProducts() {
+  getListinventary() {
     this.sweetAlertService.load();
 
     this.inventaryService
@@ -95,11 +102,11 @@ export class InventarioComponent {
       .subscribe({
         next: (resp) => {
           if (resp.statusCode === 200) {
-            this.listProducts = resp.data.list;
+            this.listinventary = resp.data.list;
             this.length = resp.data.length;
             this.sweetAlertService.close();
           } else {
-            this.listProducts = [];
+            this.listinventary = [];
             this.length = 0;
             this.sweetAlertService.information(resp.message);
           }
@@ -154,17 +161,17 @@ export class InventarioComponent {
     // Obtenemos los valores del FormGroup
     const formValues = this.formProductos.value;
 
-    const nuevoProducto: any = {
+    const nuevoInventario: any = {
       name: formValues.name,
       quantity: formValues.quantity,
     };
 
-    this.listProducts = [...this.listProducts, nuevoProducto];
+    this.listinventary = [...this.listinventary, nuevoInventario];
 
     this.messageService.add({
       severity: 'success',
       summary: 'Producto creado',
-      detail: `${nuevoProducto.name} se ha guardado correctamente`,
+      detail: `${nuevoInventario.name} se ha guardado correctamente`,
     });
 
   }
