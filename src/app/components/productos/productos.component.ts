@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormControl,
@@ -43,7 +43,8 @@ import { Producto } from './interface/producto';
     InputNumber,
     ToastModule,
     ReactiveFormsModule,
-    HeaderComponent
+    HeaderComponent,
+    NgIf
   ],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
@@ -56,6 +57,8 @@ export class ProductosComponent {
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly productService = inject(ProductService);
   imageUrl = ""
+  showSave = false
+  showUpdate = false
 
   visible: boolean = false;
   @ViewChild('fileUploader') fileUploader!: FileUpload;
@@ -117,6 +120,8 @@ export class ProductosComponent {
 
   abrirModal() {
     this.visible = true;
+    this.showSave = true
+    this.showUpdate = false
     this.formProductos.reset();
     if (this.fileUploader) {
       this.fileUploader.clear();
@@ -125,11 +130,17 @@ export class ProductosComponent {
 
   abrirModalModificar(prod: Producto) {
     this.visible = true;
+    this.showSave = false
+    this.showUpdate = true
     console.log(prod)
     this.formProductos.controls['name'].setValue(prod.name || " ")
     this.formProductos.controls['price'].setValue(prod.price?.toString() || 0 || null)
     this.formProductos.controls['description'].setValue(prod.description || " ")
     this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
+  }
+
+  actualizarProducto() {
+
   }
 
   uploadedFiles: any[] = [];

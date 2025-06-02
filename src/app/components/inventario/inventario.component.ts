@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
 import {
   FormControl,
@@ -43,13 +43,16 @@ import {InventarioService} from './services/inventario.service';
     InputNumber,
     ToastModule,
     ReactiveFormsModule,
-    HeaderComponent
+    HeaderComponent,
+    NgIf
   ],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.css',
   providers: [ProductService, MessageService],
 })
 export class InventarioComponent {
+  showSave = false
+  showUpdate = false
 
   constructor(private messageService: MessageService) { }
   private readonly sweetAlertService = inject(SweetAlertService);
@@ -72,12 +75,6 @@ export class InventarioComponent {
     quantity: new FormControl('', [Validators.required, Validators.min(1)]),
   });
 
-  abrirModalModificar(prod: any) {
-    this.visible = true;
-    console.log(prod)
-    this.formProductos.controls['name'].setValue(prod.name || " ")
-    this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
-  }
 
   ngOnInit(): void {
     this.getListinventary();
@@ -119,10 +116,25 @@ export class InventarioComponent {
 
   abrirModal() {
     this.visible = true;
+    this.showSave = true
+    this.showUpdate = false
     this.formProductos.reset();
     if (this.fileUploader) {
       this.fileUploader.clear();
     }
+  }
+
+  abrirModalModificar(prod: any) {
+    this.visible = true;
+    this.showSave = false
+    this.showUpdate = true
+    console.log(prod)
+    this.formProductos.controls['name'].setValue(prod.name || " ")
+    this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
+  }
+
+  actualizarProducto() {
+
   }
 
 
@@ -175,4 +187,5 @@ export class InventarioComponent {
     });
 
   }
+
 }
