@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import {Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -25,9 +25,7 @@ import { ProductService } from '../productos/services/product.service';
 import { SweetAlertService } from '../shared/sweet-alert.service';
 
 import { HeaderComponent } from '../header/header.component';
-import {InventarioService} from './services/inventario.service';
-
-
+import { InventarioService } from './services/inventario.service';
 
 @Component({
   selector: 'app-inventario',
@@ -44,17 +42,19 @@ import {InventarioService} from './services/inventario.service';
     ToastModule,
     ReactiveFormsModule,
     HeaderComponent,
-    NgIf
+    NgIf,
   ],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.css',
   providers: [ProductService, MessageService],
 })
 export class InventarioComponent {
-  showSave = false
-  showUpdate = false
+  showSave = false;
+  showUpdate = false;
+  id = '';
+  nuevoProducto: any = {};
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService) {}
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly inventaryService = inject(InventarioService);
 
@@ -74,7 +74,6 @@ export class InventarioComponent {
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     quantity: new FormControl('', [Validators.required, Validators.min(1)]),
   });
-
 
   ngOnInit(): void {
     this.getListinventary();
@@ -116,8 +115,8 @@ export class InventarioComponent {
 
   abrirModal() {
     this.visible = true;
-    this.showSave = true
-    this.showUpdate = false
+    this.showSave = true;
+    this.showUpdate = false;
     this.formProductos.reset();
     if (this.fileUploader) {
       this.fileUploader.clear();
@@ -126,17 +125,47 @@ export class InventarioComponent {
 
   abrirModalModificar(prod: any) {
     this.visible = true;
-    this.showSave = false
-    this.showUpdate = true
-    console.log(prod)
-    this.formProductos.controls['name'].setValue(prod.name || " ")
-    this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
+    this.showSave = false;
+    this.showUpdate = true;
+    console.log(prod);
+    this.formProductos.controls['name'].setValue(prod.name || ' ');
+    this.formProductos.controls['quantity'].setValue(
+      prod.quantity?.toString() || 0 || null
+    );
+    this.id! = prod.id! || ' ';
   }
 
   actualizarProducto() {
+    this.nuevoProducto = {
+      name: this.formProductos.value.name,
+      quantity: Number(this.formProductos.value.quantity),
+    };
 
+    if (this.formProductos.invalid) {
+      this.formProductos.markAllAsTouched();
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validación',
+        detail: 'Por favor, completa correctamente todos los campos.',
+      });
+      return;
+    }
+    this.inventaryService.update(this.id!, this.nuevoProducto).subscribe({
+      next: (resp) => {
+        if (resp.statusCode === 201) {
+          this.visible = false;
+          this.inventaryService.sendIsList$(true);
+        } else {
+          this.sweetAlertService.information(resp.message);
+        }
+        this.sweetAlertService.close();
+      },
+      error: (err) => {
+        console.error({ 'update-product': err.message });
+      },
+    });
+    this.visible = false;
   }
-
 
   salvarProducto(): void {
     // Primero validamos que el formulario sea válido
@@ -163,10 +192,9 @@ export class InventarioComponent {
       },
       error: (err) => {
         console.error({ 'create-product': err.message });
-      }
+      },
     });
-    this.agregarProductoALaLista()
-
+    this.agregarProductoALaLista();
   }
 
   agregarProductoALaLista(): void {
@@ -185,7 +213,5 @@ export class InventarioComponent {
       summary: 'Producto creado',
       detail: `${nuevoInventario.name} se ha guardado correctamente`,
     });
-
   }
-
 }

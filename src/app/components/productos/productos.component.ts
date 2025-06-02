@@ -59,6 +59,8 @@ export class ProductosComponent {
   imageUrl = ""
   showSave = false
   showUpdate = false
+  id = ""
+  nuevoProducto:any = {}
 
   visible: boolean = false;
   @ViewChild('fileUploader') fileUploader!: FileUpload;
@@ -128,7 +130,7 @@ export class ProductosComponent {
     }
   }
 
-  abrirModalModificar(prod: Producto) {
+  abrirModalModificar(prod: any) {
     this.visible = true;
     this.showSave = false
     this.showUpdate = true
@@ -137,10 +139,48 @@ export class ProductosComponent {
     this.formProductos.controls['price'].setValue(prod.price?.toString() || 0 || null)
     this.formProductos.controls['description'].setValue(prod.description || " ")
     this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
+    this.id! = prod.id! || " "
+    this.imageUrl = prod.imageUrl
   }
 
   actualizarProducto() {
 
+    this.nuevoProducto = {
+      name: this.formProductos.value.name,
+      price: Number(this.formProductos.value.price),
+      description: this.formProductos.value.description,
+      quantity: Number(this.formProductos.value.quantity),
+      image: this.imageUrl,
+    };
+
+    if (!this.nuevoProducto.image) {
+      delete this.nuevoProducto.image;
+    }
+
+    if (this.formProductos.invalid) {
+      this.formProductos.markAllAsTouched();
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validación',
+        detail: 'Por favor, completa correctamente todos los campos.',
+      });
+      return;
+    }
+    this.productService.update(this.id!, this.nuevoProducto).subscribe({
+      next: (resp) => {
+        if (resp.statusCode === 201) {
+          this.visible = false
+          this.productService.sendIsList$(true);
+        } else {
+          this.sweetAlertService.information(resp.message);
+        }
+        this.sweetAlertService.close();
+      },
+      error: (err) => {
+        console.error({ 'update-product': err.message });
+      }
+    });
+    this.visible = false;
   }
 
   uploadedFiles: any[] = [];
