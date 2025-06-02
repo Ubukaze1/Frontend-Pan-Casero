@@ -55,6 +55,7 @@ export class ProductosComponent {
   constructor(private messageService: MessageService) { }
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly productService = inject(ProductService);
+  imageUrl = ""
 
   visible: boolean = false;
   @ViewChild('fileUploader') fileUploader!: FileUpload;
@@ -122,6 +123,15 @@ export class ProductosComponent {
     }
   }
 
+  abrirModalModificar(prod: Producto) {
+    this.visible = true;
+    console.log(prod)
+    this.formProductos.controls['name'].setValue(prod.name || " ")
+    this.formProductos.controls['price'].setValue(prod.price?.toString() || 0 || null)
+    this.formProductos.controls['description'].setValue(prod.description || " ")
+    this.formProductos.controls['quantity'].setValue(prod.quantity?.toString() || 0 || null)
+  }
+
   uploadedFiles: any[] = [];
 
   obtenerImgUrl(event: any) {
@@ -138,9 +148,9 @@ export class ProductosComponent {
       .then(res => res.json())
       .then(data => {
         console.log('Imagen subida a Cloudinary:', data);
-        const imageUrl = data.secure_url;
+        this.imageUrl = data.secure_url;
 
-        this.formProductos.get('image')?.setValue(imageUrl); //
+        this.formProductos.get('image')?.setValue(this.imageUrl); //
 
         this.uploadedFiles.push(file);
 
@@ -150,7 +160,6 @@ export class ProductosComponent {
           detail: 'URL guardada en el formulario'
         });
         // Puedes continuar con lo que necesites (crear producto, etc.)
-        this.agregarProductoALaLista(imageUrl);
       }).catch(err => {
         console.error('Error al subir a Cloudinary', err);
         this.messageService.add({
@@ -172,19 +181,8 @@ export class ProductosComponent {
       });
       return;
     }
-    // Si hay archivos pendientes de subir, disparamos upload()
-    if (this.fileUploader && this.fileUploader.files.length) {
-      this.fileUploader.upload();
-      // El flujo continúa en onUpload(), que completará la información de imageUrls
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Validación',
-        detail: 'Por favor, Colocar imagen para el producto.',
-      });
-      return;
-    }
 
+    this.agregarProductoALaLista(this.imageUrl)
     this.sweetAlertService.load();
 
     this.productService.create(this.formProductos.value).subscribe({
@@ -222,15 +220,5 @@ export class ProductosComponent {
       summary: 'Producto creado',
       detail: `${nuevoProducto.name} se ha guardado correctamente`,
     });
-
-    setTimeout(() => {
-      // this.visible = false;
-      // this.formProductos.reset();
-      if (this.fileUploader) {
-        this.fileUploader.clear();
-      }
-      this.uploadedFiles = [];
-    }, 10000);
-    // Cerramos modal y limpiamos formulario
   }
 }

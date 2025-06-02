@@ -25,7 +25,6 @@ import { ProductService } from '../productos/services/product.service';
 import { SweetAlertService } from '../shared/sweet-alert.service';
 
 import { HeaderComponent } from '../header/header.component';
-import {Producto} from '../productos/interface/producto';
 import {InventarioService} from './services/inventario.service';
 
 
@@ -52,8 +51,10 @@ import {InventarioService} from './services/inventario.service';
 })
 export class InventarioComponent {
 
+  constructor(private messageService: MessageService) { }
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly inventaryService = inject(InventarioService);
+
   visible: boolean = false;
   @ViewChild('fileUploader') fileUploader!: FileUpload;
 
@@ -67,13 +68,9 @@ export class InventarioComponent {
   skip: number = 0;
 
   formProductos = new FormGroup({
-    nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    precio: new FormControl('', [Validators.required, Validators.min(1)]),
-    descripción: new FormControl('', Validators.required),
-    cantidad: new FormControl('', [Validators.required, Validators.min(1)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    quantity: new FormControl('', [Validators.required, Validators.min(1)]),
   });
-
-  constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getListProducts();
@@ -100,12 +97,12 @@ export class InventarioComponent {
           if (resp.statusCode === 200) {
             this.listProducts = resp.data.list;
             this.length = resp.data.length;
+            this.sweetAlertService.close();
           } else {
             this.listProducts = [];
             this.length = 0;
-            this.sweetAlertService.error(resp.message);
+            this.sweetAlertService.information(resp.message);
           }
-          this.sweetAlertService.close();
         },
         error: (err) => {
           this.sweetAlertService.error(err);
@@ -121,22 +118,6 @@ export class InventarioComponent {
     }
   }
 
-  uploadedFiles: any[] = [];
-
-  obtenerImgUrl(event: FileUploadEvent) {
-    console.log('Entro');
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-
-    this.messageService.add({
-      severity: 'info',
-      summary: 'File Uploaded',
-      detail: '',
-    });
-
-    this.agregarProductoALaLista('');
-  }
 
   salvarProducto(): void {
     // Primero validamos que el formulario sea válido
@@ -150,30 +131,32 @@ export class InventarioComponent {
       return;
     }
 
-    // Si hay archivos pendientes de subir, disparamos upload()
-    if (this.fileUploader && this.fileUploader.files.length) {
-      this.fileUploader.upload();
-      // El flujo continúa en onUpload(), que completará la información de imageUrls
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Validación',
-        detail: 'Por favor, Colocar imagen para el producto.',
-      });
-      return;
-    }
+    this.sweetAlertService.load();
+
+    this.inventaryService.create(this.formProductos.value).subscribe({
+      next: (resp) => {
+        if (resp.statusCode === 201) {
+          this.inventaryService.sendIsList$(true);
+          this.visible = false;
+        } else {
+          this.sweetAlertService.information(resp.message);
+        }
+      },
+      error: (err) => {
+        console.error({ 'create-product': err.message });
+      }
+    });
+    this.agregarProductoALaLista()
+
   }
 
-  agregarProductoALaLista(imageUrls: string): void {
+  agregarProductoALaLista(): void {
     // Obtenemos los valores del FormGroup
     const formValues = this.formProductos.value;
 
-    const nuevoProducto: Producto = {
-      nombre: formValues.nombre,
-      precio: formValues.precio,
-      descripción: formValues.descripción,
-      cantidad: formValues.cantidad,
-      imageUrls: imageUrls,
+    const nuevoProducto: any = {
+      name: formValues.name,
+      quantity: formValues.quantity,
     };
 
     this.listProducts = [...this.listProducts, nuevoProducto];
@@ -181,17 +164,8 @@ export class InventarioComponent {
     this.messageService.add({
       severity: 'success',
       summary: 'Producto creado',
-      detail: `${nuevoProducto.nombre} se ha guardado correctamente`,
+      detail: `${nuevoProducto.name} se ha guardado correctamente`,
     });
-    setTimeout(() => {
-      this.visible = false;
-      this.formProductos.reset();
-      if (this.fileUploader) {
-        this.fileUploader.clear();
-      }
-      this.uploadedFiles = [];
-    }, 2000);
 
-    // Cerramos modal y limpiamos formulario
   }
 }

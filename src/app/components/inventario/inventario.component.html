@@ -15,12 +15,14 @@
         />
       </div>
       <div class="flex align-items-center mb-4">
+        <!--
         <div class="absolute">
           <span
             class="pi pi-search relative"
             style="left: 15px; top: 3px"
           ></span>
         </div>
+-->
         <input
           type="text"
           pInputText
@@ -44,7 +46,7 @@
         <ng-template pTemplate="body" let-producto>
           <tr>
             <td>{{ producto.name }}</td>
-            <td>{{ producto.price }}</td>
+            <td>{{ producto.quantity }}</td>
             <td><button>Editar</button></td>
           </tr>
         </ng-template>
