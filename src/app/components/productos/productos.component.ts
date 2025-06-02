@@ -24,6 +24,8 @@ import { MessageService } from 'primeng/api';
 import { ProductService } from '../productos/services/product.service';
 import { SweetAlertService } from '../shared/sweet-alert.service';
 
+import { HeaderComponent } from '../header/header.component';
+
 import { UploadEvent } from './interface/Upload';
 import { Producto } from './interface/producto';
 
@@ -41,6 +43,7 @@ import { Producto } from './interface/producto';
     InputNumber,
     ToastModule,
     ReactiveFormsModule,
+    HeaderComponent
   ],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
