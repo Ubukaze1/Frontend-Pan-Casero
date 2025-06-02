@@ -1,4 +1,4 @@
-export interface Producto{
+export interface Producto {
   name: string | undefined | null
   price: number | undefined | null | string
   description: string | undefined | null

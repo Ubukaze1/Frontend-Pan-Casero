@@ -3,16 +3,10 @@
 
   <div class="flex justify-content-center flex-wrap mt-7">
     <div class="card w-10">
-      <div
-        class="flex justify-content-between flex-wrap align-items-center mb-5"
-      >
+      <div class="flex justify-content-between flex-wrap align-items-center mb-5">
         <h1>Gestiòn de Inventario</h1>
 
-        <p-button
-          label="Nuevo producto"
-          severity="success"
-          (click)="abrirModal()"
-        />
+        <p-button label="Nuevo producto" severity="success" (click)="abrirModal()" />
       </div>
       <div class="flex align-items-center mb-4">
         <!--
@@ -23,19 +17,9 @@
           ></span>
         </div>
 -->
-        <input
-          type="text"
-          pInputText
-          [(ngModel)]="value"
-          placeholder="Buscar"
-          class="pl-6 flex-1"
-        />
+        <input type="text" pInputText [(ngModel)]="value" placeholder="Buscar" class="pl-6 flex-1" />
       </div>
-      <p-table
-        [value]="listinventary"
-        stripedRows
-        [tableStyle]="{'min-width': '50rem'}"
-      >
+      <p-table [value]="listinventary" stripedRows [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
           <tr>
             <th>Nombre</th>
@@ -47,51 +31,31 @@
           <tr>
             <td>{{ producto.name }}</td>
             <td>{{ producto.quantity }}</td>
-          <td><div class="button-div "><button class="button-editar" (click)="abrirModalModificar(producto)">Editar</button></div></td>
+            <td>
+              <div class="button-div "><button class="button-editar"
+                  (click)="abrirModalModificar(producto)">Editar</button></div>
+            </td>
           </tr>
         </ng-template>
       </p-table>
 
-      <p-dialog
-        header="Nuevo Producto"
-        [(visible)]="visible"
-        [style]="{ width: '50rem' }"
-      >
-        <span class="p-text-secondary block mb-5"
-          >Crea un nuevo producto rellenando todos los espacios</span
-        >
+      <p-dialog header="Nuevo Producto" [(visible)]="visible" [style]="{ width: '50rem' }">
+        <span class="p-text-secondary block mb-5">Crea un nuevo producto rellenando todos los espacios</span>
         <form [formGroup]="formProductos">
           <div class="flex items-center gap-4 mb-4 text-center">
             <label for="username" class="font-semibold w-24 mr-5">Nombre</label>
-            <input
-              pInputText
-              id="username"
-              class="flex-auto"
-              autocomplete="off"
-              formControlName="name"
-            />
+            <input pInputText id="username" class="flex-auto" autocomplete="off" formControlName="name" />
           </div>
           <div class="flex items-center gap-4 mb-4">
-            <label for="cantidad" class="font-semibold w-24 mr-4"
-              >Cantidad</label
-            >
-            <p-inputnumber
-              type="number"
-              id="cantidad"
-              class="flex-auto"
-              autocomplete="off"
-              formControlName="quantity"
-            />
+            <label for="cantidad" class="font-semibold w-24 mr-4">Cantidad</label>
+            <p-inputnumber type="number" id="cantidad" class="flex-auto" autocomplete="off"
+              formControlName="quantity" />
           </div>
           <p-toast />
           <div class="flex justify-content-end gap-2 mt-4">
-            <p-button
-              label="Cancel"
-              severity="secondary"
-              (click)="visible = false"
-            />
-          <p-button label="Save" (click)="salvarProducto()"  *ngIf="showSave"/>
-          <p-button label="Update" (click)="actualizarProducto()" *ngIf="showUpdate"/>
+            <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+            <p-button label="Save" (click)="salvarProducto()" *ngIf="showSave" />
+            <p-button label="Update" (click)="actualizarProducto()" *ngIf="showUpdate" />
           </div>
         </form>
       </p-dialog>

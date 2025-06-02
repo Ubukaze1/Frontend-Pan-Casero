@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   .button-editar {
     color: white;
     background-color: #eb5757;
@@ -20,6 +21,7 @@
     cursor: pointer;
     transition: all 100ms;
     margin-top: 10px;
+
     &:hover {
       background-color: #ef8687;
     }

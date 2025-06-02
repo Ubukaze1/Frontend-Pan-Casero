@@ -1,7 +1,10 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+
 import { Tienda } from '../../../../interface/product';
-import {CartService} from '../service/cart.service';
-import {CartItem} from '../interface/cart-item';
+
+import { CartItem } from '../interface/cart-item';
+
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-cardmodal',
@@ -17,7 +20,7 @@ export class CardmodalComponent {
   @Input() img = '';
   @Input() nom = '';
   @Input() prod!: Tienda;
-  ngOnInit() {}
+  ngOnInit() { }
 
   onVerMasClick(produ: Tienda) {
     console.log(produ);
@@ -26,9 +29,7 @@ export class CardmodalComponent {
 
   @ViewChild('cardDialog') dialogRef!: ElementRef<HTMLDialogElement>;
 
-  constructor(private cartService: CartService) {}
-
-
+  constructor(private cartService: CartService) { }
 
   abrirModal() {
     // .showModal() abre el <dialog> en pantalla
@@ -51,7 +52,7 @@ export class CardmodalComponent {
 
   agregarAlCarrito() {
 
-        // 1) Armar el objeto CartItem
+    // 1) Armar el objeto CartItem
     const nuevoItem: CartItem = {
       id: this.prod.id,
       nombre: this.prod.nombre,

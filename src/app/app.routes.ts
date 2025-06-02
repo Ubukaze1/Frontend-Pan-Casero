@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
-import { InventarioComponent } from './components/inventario/inventario.component';
-import { ProductosComponent } from './components/productos/productos.component';
-import {MainpageComponent} from './components/mainpage/mainpage.component';
-import {TiendaComponent} from './components/tienda/tienda.component';
-import {CarritoComponent} from './components/carrito/carrito.component';
+
 import { AuthGuard } from './components/shared/auth.guard';
+
+import { CarritoComponent } from './components/carrito/carrito.component';
+import { InventarioComponent } from './components/inventario/inventario.component';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
+import { ProductosComponent } from './components/productos/productos.component';
+import { TiendaComponent } from './components/tienda/tienda.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +19,7 @@ export const routes: Routes = [
   },
   {
     path: 'inventario',
-    component: InventarioComponent, canActivate: [AuthGuard] 
+    component: InventarioComponent, canActivate: [AuthGuard]
   },
   {
     path: 'productos',

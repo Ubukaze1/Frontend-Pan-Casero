@@ -1,12 +1,16 @@
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
+
 import Aura from '@primeng/themes/aura';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+
 import { AuthInterceptor } from './components/shared/auth.interceptor';
+
+import { routes } from './app.routes';
+
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,9 +23,9 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom([SweetAlert2Module.forRoot()]),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptorsFromDi()), 
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
     {
-      provide: HTTP_INTERCEPTORS, 
+      provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
     },

@@ -1,17 +1,20 @@
 .component-card {
   padding-top: 50px;
   display: flex;
+
   .card {
     width: 600px;
     height: 320px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
+
     .card-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
     .card-body {
       width: 100%;
       height: 100%;
@@ -33,6 +36,7 @@
         font-weight: bold;
         font-style: italic;
       }
+
       .card-button {
         color: white;
         background-color: #eb5757;
@@ -46,6 +50,7 @@
         cursor: pointer;
         transition: all 100ms;
         margin-top: 10px;
+
         &:hover {
           background-color: #ef8687;
           transform: translateY(-5px);
@@ -87,9 +92,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparent; /* el backdrop ya oscurece */
+  background: transparent;
+  /* el backdrop ya oscurece */
   cursor: pointer;
-  z-index: 1; /* Debajo de .dialog-box */
+  z-index: 1;
+  /* Debajo de .dialog-box */
 }
 
 /* 3) Caja blanca centrada (.dialog-box) */
@@ -112,7 +119,8 @@
   /* IMPORTANTE: no usamos display:flex en el diálogo completo,
      usamos flex solo dentro de dialog-content */
   display: block;
-  z-index: 2; /* Encima de .dialog-overlay */
+  z-index: 2;
+  /* Encima de .dialog-overlay */
 }
 
 /* 4) Botón de cerrar (X) */
@@ -135,6 +143,7 @@
   transition: background 0.2s;
   z-index: 3;
 }
+
 .dialog-close:hover {
   background: #333;
 }
@@ -148,7 +157,8 @@
   gap: 24px;
   padding: 24px;
   overflow: hidden;
-  height: 100%; /* para aprovechar todo el alto de la caja blanca */
+  height: 100%;
+  /* para aprovechar todo el alto de la caja blanca */
   box-sizing: border-box;
 }
 
@@ -160,6 +170,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .imagen img {
   max-width: 100%;
   max-height: 100%;
@@ -173,19 +184,23 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-right: 8px; /* para espacio al hacer scroll */
+  padding-right: 8px;
+  /* para espacio al hacer scroll */
 }
+
 .detalles h2 {
   margin: 0;
   font-size: 1.8rem;
   color: #4a2f15;
 }
+
 .precio {
   font-size: 1.2rem;
   color: #4a2f15;
   margin: 8px 0 16px;
   font-weight: 500;
 }
+
 .descripcion {
   font-size: 0.95rem;
   color: #666;
@@ -200,11 +215,13 @@
   font-size: 0.9rem;
   margin-bottom: 24px;
 }
-.quantity-selector > span {
+
+.quantity-selector>span {
   font-weight: 600;
   color: #4a2f15;
   margin-bottom: 8px;
 }
+
 .qty-buttons {
   display: inline-flex;
   align-items: center;
@@ -212,6 +229,7 @@
   overflow: hidden;
   user-select: none;
 }
+
 .qty-btn {
   background-color: #f5f5f5;
   border: none;
@@ -222,9 +240,11 @@
   line-height: 1;
   transition: background 0.2s;
 }
+
 .qty-btn:hover {
   background-color: #e0e0e0;
 }
+
 .qty-input {
   width: 50px;
   text-align: center;
@@ -233,6 +253,7 @@
   padding: 6px 0;
   -moz-appearance: textfield;
 }
+
 .qty-input::-webkit-outer-spin-button,
 .qty-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -243,8 +264,10 @@
 .actions {
   display: flex;
   gap: 16px;
-  margin-top: auto; /* empuja los botones al fondo de la caja blanca */
+  margin-top: auto;
+  /* empuja los botones al fondo de la caja blanca */
 }
+
 .btn-add-cart {
   background-color: #f48c06;
   color: #ffffff;
@@ -257,13 +280,16 @@
   font-weight: 600;
   transition: background 0.2s;
 }
+
 .btn-add-cart:hover {
   background-color: #d97b05;
 }
+
 .res {
   display: flex;
   align-items: center;
   justify-content: center;
+
   .btn-view-details {
     font-size: 12px;
     color: black;

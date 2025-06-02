@@ -1,9 +1,11 @@
-import {NgIf} from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import {Subscription} from 'rxjs';
-import {CartService} from '../../tienda/service/cart.service';
+
+import { Subscription } from 'rxjs';
+
 import { KeycloakService } from '../../shared/auth.keycloak.service';
+import { CartService } from '../../tienda/service/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -19,10 +21,10 @@ export class HeaderComponent {
   private countSub!: Subscription;
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private cartService: CartService,
-    private keycloakService: KeycloakService // Assuming you have a KeycloakService for authentication
-  ) {}
+    private keycloakService: KeycloakService 
+  ) { }
 
   isLoggedIn = false
 

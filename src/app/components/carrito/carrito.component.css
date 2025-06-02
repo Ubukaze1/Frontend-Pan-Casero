@@ -139,11 +139,13 @@
   text-align: center;
   margin: 13rem 0;
   font-size: 5rem;
-  color: white;          /* Coincide con el color general del texto */
+  color: white;
+  /* Coincide con el color general del texto */
 }
 
 .empty-message a {
-  color: #8c3200;          /* Mismo tono de enlace usado en el sitio */
+  color: #8c3200;
+  /* Mismo tono de enlace usado en el sitio */
   text-decoration: underline;
   font-weight: 500;
   cursor: pointer;
@@ -151,5 +153,6 @@
 }
 
 .empty-message a:hover {
-  color: #5a463c;          /* Una versión más oscura al pasar el ratón */
+  color: #5a463c;
+  /* Una versión más oscura al pasar el ratón */
 }
