@@ -4,31 +4,18 @@
     <div class="flex justify-content-between flex-wrap align-items-center mb-5">
       <h1>Gestiòn de productos</h1>
 
-      <p-button
-        label="Nuevo producto"
-        severity="success"
-        (click)="abrirModal()"
-      />
+      <p-button label="Nuevo producto" severity="success" (click)="abrirModal()" />
     </div>
     <div class="flex align-items-center mb-4">
       <div class="absolute">
         <span class="pi pi-search relative" style="left: 15px; top: 3px"></span>
       </div>
-      <input
-        type="text"
-        pInputText
-        [(ngModel)]="value"
-        placeholder="Buscar"
-        class="pl-6 flex-1"
-      />
+      <input type="text" pInputText [(ngModel)]="value" placeholder="Buscar" class="pl-6 flex-1" />
     </div>
-    <p-table
-      [value]="listProducts"
-      stripedRows
-      [tableStyle]="{'min-width': '50rem'}"
-    >
+    <p-table [value]="listProducts" stripedRows [tableStyle]="{'min-width': '50rem'}">
       <ng-template pTemplate="header">
         <tr>
+          <th>Imagen</th>
           <th>Nombre</th>
           <th>Precio</th>
           <th>Descripción</th>
@@ -36,6 +23,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-producto>
         <tr>
+          <td>
+            <img *ngIf="producto.image" [src]="producto.image" alt="Imagen del producto" width="100" height="100" />
+          </td>
           <td>{{ producto.name }}</td>
           <td>{{ producto.price }}</td>
           <td>{{ producto.description }}</td>
@@ -43,49 +33,33 @@
       </ng-template>
     </p-table>
 
-    <p-dialog
-      header="Nuevo Producto"
-      [(visible)]="visible"
-      [style]="{ width: '50rem' }"
-    >
-      <span class="p-text-secondary block mb-5"
-        >Crea un nuevo producto rellenando todos los espacios</span
-      >
+    <p-dialog header="Nuevo Producto" [(visible)]="visible" [style]="{ width: '50rem' }">
+      <span class="p-text-secondary block mb-5">Crear un nuevo producto</span>
       <form [formGroup]="formProductos">
+
         <div class="flex items-center gap-4 mb-4 text-center">
           <label for="username" class="font-semibold w-24 mr-5">Nombre</label>
-          <input
-            pInputText
-            id="username"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="nombre"
-          />
+          <input pInputText id="username" class="flex-auto" autocomplete="off" formControlName="name" />
         </div>
+
         <div class="flex items-center gap-4 mb-4">
           <label for="precio" class="font-semibold w-24 mr-6">Precio</label>
-          <p-inputnumber id="precio" class="flex-auto" autocomplete="off" formControlName="precio"/>
+          <p-inputnumber id="precio" class="flex-auto" autocomplete="off" formControlName="price" />
         </div>
+
         <div class="flex items-center gap-4 mb-4">
           <label for="descripción" class="font-semibold w-24 mr-2">Descripción</label>
-          <input pInputText id="descripción" class="flex-auto" autocomplete="off" formControlName="descripción"/>
+          <input pInputText id="descripción" class="flex-auto" autocomplete="off" formControlName="description" />
         </div>
+
         <div class="flex items-center gap-4 mb-4">
           <label for="cantidad" class="font-semibold w-24 mr-4">Cantidad</label>
-          <p-inputnumber type="number" id="cantidad" class="flex-auto" autocomplete="off" formControlName="cantidad"/>
+          <p-inputnumber type="number" id="cantidad" class="flex-auto" autocomplete="off" formControlName="quantity" />
         </div>
         <p-toast />
-        <p-fileupload
-          #fileUploader
-          name="demo[]"
-          url="https://www.primefaces.org/cdn/api/upload.php"
-          (onUpload)="obtenerImgUrl($event)"
-          [multiple]="true"
-          accept="image/*"
-          maxFileSize="1000000"
-          [auto]="false"
-          mode="advanced"
-        >
+
+        <p-fileupload #fileUploader [customUpload]="true" (onSelect)="obtenerImgUrl($event)" [multiple]="false"
+          accept="image/*" maxFileSize="1000000" [auto]="false" mode="advanced">
           <ng-template #empty>
             <div>Drag and drop files to here to upload.</div>
           </ng-template>
@@ -97,47 +71,27 @@
             </ul>
           </ng-template>
         </p-fileupload>
+
+        <!-- <p-fileupload #fileUploader name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+          (onUpload)="obtenerImgUrl($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" [auto]="false"
+          mode="advanced">
+          <ng-template #empty>
+            <div>Drag and drop files to here to upload.</div>
+          </ng-template>
+          <ng-template #content>
+            <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">
+                {{ file.name }} - {{ file.size }} bytes
+              </li>
+            </ul>
+          </ng-template>
+        </p-fileupload> -->
+
         <div class="flex justify-content-end gap-2 mt-4">
-          <p-button
-            label="Cancel"
-            severity="secondary"
-            (click)="visible = false"
-          />
+          <p-button label="Cancel" severity="secondary" (click)="visible = false" />
           <p-button label="Save" (click)="salvarProducto()" />
         </div>
       </form>
     </p-dialog>
-
-    <!-- <p-table [value]="products" stripedRows [tableStyle]="{'min-width': '50rem'}">
-      <ng-template #header>
-        <tr>
-          <th>Producto</th>
-          <th>Categoria</th>
-          <th>Precio</th>
-          <th>Inventario</th>
-          <th>Acciones</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-product>
-        @for (item of listProducts; track $index) {
-        <tr class="text-center">
-          <td>{{$index + 1}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.person.number_identification}} </td>
-          <td>{{getUserRoleLabel(item.user.roles)}} </td>
-          <td>{{item.person.email}}</td>
-          <td>{{item.person.phone}} </td>
-          <td>
-            <button type="button" class="btn p-0" (click)="">
-              <i class="feather icon-edit"></i>
-            </button>
-            <button type="button" class="btn p-0 ms-2">
-              <i class="feather icon-trash-2"></i>
-            </button>
-          </td>
-        </tr>
-        }
-      </ng-template>
-    </p-table> -->
   </div>
 </div>
