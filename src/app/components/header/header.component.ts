@@ -16,13 +16,9 @@ export class HeaderComponent {
 
   constructor(private router: Router) { }
 
-  iraProductos() {
-    console.log("Entra aqui")
-    this.router.navigateByUrl("productos")
+  irA(text: string) {
+    this.router.navigateByUrl(text)
   }
-  
-  iraInventario() {
-    this.router.navigateByUrl("inventario")
-  }
+
 
 }

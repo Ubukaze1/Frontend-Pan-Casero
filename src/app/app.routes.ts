@@ -7,6 +7,7 @@ import { InventarioComponent } from './components/inventario/inventario.componen
 import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
+import {VentasComponent} from './components/ventas/ventas.component';
 
 export const routes: Routes = [
   {
@@ -28,5 +29,9 @@ export const routes: Routes = [
   {
     path: 'carrito',
     component: CarritoComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'ventas',
+    component: VentasComponent, canActivate: [AuthGuard]
   },
 ];

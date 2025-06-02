@@ -1,0 +1,39 @@
+<div class="component">
+  <app-header />
+
+  <div class="flex justify-content-center flex-wrap mt-7">
+    <div class="card w-10">
+      <div class="flex justify-content-center flex-wrap align-items-center mb-5">
+        <h1>Gestiòn de Ventas</h1>
+
+      </div>
+      <div class="flex align-items-center mb-4">
+        <!--
+        <div class="absolute">
+          <span
+            class="pi pi-search relative"
+            style="left: 15px; top: 3px"
+          ></span>
+        </div>
+-->
+      </div>
+      <p-table [value]="listVentas" stripedRows [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+          <tr>
+            <td>{{ producto.name }}</td>
+            <td>{{ producto.quantity }}</td>
+            <td>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
