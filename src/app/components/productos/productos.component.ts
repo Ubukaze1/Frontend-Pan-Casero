@@ -94,7 +94,6 @@ export class ProductosComponent {
             this.listProducts = resp.data.list;
             this.length = resp.data.length;
             this.sweetAlertService.close();
-
           } else {
             this.listProducts = [];
             this.length = 0;
@@ -130,9 +129,10 @@ export class ProductosComponent {
     })
       .then(res => res.json())
       .then(data => {
+        console.log('Imagen subida a Cloudinary:', data);
         const imageUrl = data.secure_url;
 
-        this.formProductos.get('image')?.setValue(imageUrl);
+        this.formProductos.get('image')?.setValue(imageUrl); //
 
         this.uploadedFiles.push(file);
 
@@ -141,11 +141,9 @@ export class ProductosComponent {
           summary: 'Imagen subida correctamente',
           detail: 'URL guardada en el formulario'
         });
-
         // Puedes continuar con lo que necesites (crear producto, etc.)
         this.agregarProductoALaLista(imageUrl);
-      })
-      .catch(err => {
+      }).catch(err => {
         console.error('Error al subir a Cloudinary', err);
         this.messageService.add({
           severity: 'error',
@@ -153,22 +151,7 @@ export class ProductosComponent {
           detail: 'No se pudo subir la imagen'
         });
       });
-    }
-
-  // obtenerImgUrl(event: FileUploadEvent) {
-  //   console.log('Entro');
-  //   for (let file of event.files) {
-  //     this.uploadedFiles.push(file);
-  //   }
-
-  //   this.messageService.add({
-  //     severity: 'info',
-  //     summary: 'File Uploaded',
-  //     detail: '',
-  //   });
-
-  //   this.agregarProductoALaLista('');
-  // }
+  }
 
   salvarProducto(): void {
     // Primero validamos que el formulario sea válido
@@ -181,7 +164,6 @@ export class ProductosComponent {
       });
       return;
     }
-
     // Si hay archivos pendientes de subir, disparamos upload()
     if (this.fileUploader && this.fileUploader.files.length) {
       this.fileUploader.upload();
@@ -201,6 +183,7 @@ export class ProductosComponent {
       next: (resp) => {
         if (resp.statusCode === 201) {
           this.productService.sendIsList$(true);
+          this.visible = false;
         } else {
           this.sweetAlertService.information(resp.message);
         }
@@ -233,14 +216,13 @@ export class ProductosComponent {
     });
 
     setTimeout(() => {
-      this.visible = false;
-      this.formProductos.reset();
+      // this.visible = false;
+      // this.formProductos.reset();
       if (this.fileUploader) {
         this.fileUploader.clear();
       }
       this.uploadedFiles = [];
-    }, 2000);
-
+    }, 10000);
     // Cerramos modal y limpiamos formulario
   }
 }

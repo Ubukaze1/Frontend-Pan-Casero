@@ -7,7 +7,7 @@ import { KeycloakService } from './auth.keycloak.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private keycloakService: KeycloakService, private router: Router) {}
+  constructor(private keycloakService: KeycloakService, private router: Router) { }
 
   canActivate(): boolean {
     if (this.keycloakService.isLoggedIn()) {

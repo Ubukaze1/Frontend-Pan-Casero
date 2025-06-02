@@ -1,4 +1,3 @@
-// src/app/keycloak.service.ts
 import { Injectable } from '@angular/core';
 import Keycloak from 'keycloak-js';
 
