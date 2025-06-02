@@ -23,7 +23,7 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private cartService: CartService,
-    private keycloakService: KeycloakService 
+    private keycloakService: KeycloakService
   ) { }
 
   isLoggedIn = false
@@ -46,10 +46,6 @@ export class HeaderComponent {
 
   irAIniciarSesion() {
     this.keycloakService.login();
-  }
-
-  cerrarSesion() {
-    this.keycloakService.logout();
   }
 
   ngOnInit() {

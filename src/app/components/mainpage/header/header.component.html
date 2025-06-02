@@ -5,7 +5,7 @@
       <li class="menu-item" (click)="iraInicio()">Inicio</li>
       <li class="menu-item" (click)="irA('tienda')">Tienda</li>
       <li class="menu-item special" id="Special" *ngIf="!isLoggedIn" (click)="irAIniciarSesion()">Iniciar Sesion</li>
-      <li class="menu-item special" id="Special" *ngIf="isLoggedIn" (click)="cerrarSesion()">Cerrar Sesion</li>
+      <li class="menu-item special" id="Special" *ngIf="isLoggedIn" (click)="irA('productos')">Dashboard</li>
       <li class="menu-item cart-container" (click)="irA('carrito')">
         <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon">
           <path

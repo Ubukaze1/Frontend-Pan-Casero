@@ -5,6 +5,7 @@ import { SharedModule } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { Toolbar } from 'primeng/toolbar';
+import {KeycloakService} from '../shared/auth.keycloak.service';
 
 @Component({
   selector: 'app-header',
@@ -14,10 +15,16 @@ import { Toolbar } from 'primeng/toolbar';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private keycloakService: KeycloakService
+  ) { }
 
   irA(text: string) {
     this.router.navigateByUrl(text)
+  }
+
+  cerrarSesion() {
+    this.keycloakService.logout();
   }
 
 
