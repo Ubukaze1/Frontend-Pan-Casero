@@ -12,9 +12,11 @@
   font-style: normal;
 }
 
+
+
 *,
 *:after,
-*:before {
+*:before .p-component {
   font-family: "MyFont";
   margin: 0;
   padding: 0;
