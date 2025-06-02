@@ -11,9 +11,9 @@ export class CardComponent {
   @Input() sty = '';
   @Input() img = '';
   @Input() prod = '';
-  ngOnInit() {}
+  ngOnInit() { }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   irA(link: string) {
     console.log("Entra Aqui")

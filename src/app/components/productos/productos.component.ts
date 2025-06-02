@@ -24,11 +24,6 @@ import { ProductService } from '../productos/services/product.service';
 import { SweetAlertService } from '../shared/sweet-alert.service';
 
 import { HeaderComponent } from '../header/header.component';
-
-import { UploadEvent } from './interface/Upload';
-import { Producto } from './interface/producto';
-
-
 @Component({
   selector: 'app-productos',
   imports: [
@@ -60,7 +55,7 @@ export class ProductosComponent {
   showSave = false
   showUpdate = false
   id = ""
-  nuevoProducto:any = {}
+  nuevoProducto: any = {}
 
   visible: boolean = false;
   @ViewChild('fileUploader') fileUploader!: FileUpload;

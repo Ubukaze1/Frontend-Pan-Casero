@@ -11,14 +11,13 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { FileUpload } from 'primeng/fileupload';
+import { InputNumber } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
-import { FileUpload } from 'primeng/fileupload';
-import { FileUploadEvent } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
-import { InputNumber } from 'primeng/inputnumber';
 
 import { MessageService } from 'primeng/api';
 import { ProductService } from '../productos/services/product.service';
@@ -54,7 +53,7 @@ export class InventarioComponent {
   id = '';
   nuevoProducto: any = {};
 
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService) { }
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly inventaryService = inject(InventarioService);
 

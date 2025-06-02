@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {HeaderComponent} from './header/header.component';
-import {CardComponent} from './card/card.component';
-import {FooterComponent} from './footer/footer.component';
+
+import { CardComponent } from './card/card.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-mainpage',

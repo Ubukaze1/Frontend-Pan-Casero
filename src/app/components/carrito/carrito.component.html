@@ -1,6 +1,6 @@
 <div class="component">
   <app-header />
-  <div class="centro" >
+  <div class="centro">
     <div class="cart-wrapper" *ngIf="carrito.length > 0; else carritoVacio">
       <h2 class="cart-title">Carrito de compra</h2>
 
@@ -23,12 +23,7 @@
         </div>
         <div class="product-price">{{ item.precio }}</div>
         <div class="product-quantity">
-          <input
-            type="number"
-            min="0"
-            [(ngModel)]="item.cantidad"
-            (ngModelChange)="cambiarCantidad(item.id, $event)"
-          />
+          <input type="number" min="0" [(ngModel)]="item.cantidad" (ngModelChange)="cambiarCantidad(item.id, $event)" />
         </div>
         <div class="product-total">{{ (item.precio * item.cantidad) }}</div>
       </div>
@@ -48,11 +43,11 @@
 
     </div>
 
-  <ng-template #carritoVacio>
-    <p class="empty-message">
-      Tu carrito está vacío. <a (click)="irA('tienda')">Empieza a comprar</a>.
-    </p>
-  </ng-template>
+    <ng-template #carritoVacio>
+      <p class="empty-message">
+        Tu carrito está vacío. <a (click)="irA('tienda')">Empieza a comprar</a>.
+      </p>
+    </ng-template>
     <!-- Botón de finalización de pago -->
   </div>
   <app-footer />

@@ -1,12 +1,16 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../mainpage/header/header.component';
-import { FooterComponent } from '../mainpage/footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Subscription } from 'rxjs';
+
 import { CartItem } from '../tienda/interface/cart-item';
+
+import { FooterComponent } from '../mainpage/footer/footer.component';
+import { HeaderComponent } from '../mainpage/header/header.component';
+
 import { CartService } from '../tienda/service/cart.service';
-import {NgFor, NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-carrito',
@@ -22,14 +26,14 @@ export class CarritoComponent {
 
   private itemsSub$!: Subscription
 
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(private cartService: CartService, private router: Router) { }
 
-  irA(link:string) {
+  irA(link: string) {
     this.router.navigateByUrl("tienda")
   }
 
   /** Si el usuario cambia la cantidad en el carrito mismo */
-  cambiarCantidad(productId:string, nuevaCantidad:number) {
+  cambiarCantidad(productId: string, nuevaCantidad: number) {
 
 
     //if (nuevaCantidad > 0) return;
@@ -38,7 +42,7 @@ export class CarritoComponent {
     // 1) Actualizo la cantidad en el array local
     //const index = this.carrito.findIndex((ci) => ci.id === item.id);
     //if (index === -1) {
-      //this.carrito[index].cantidad = nuevaCantidad;
+    //this.carrito[index].cantidad = nuevaCantidad;
     //}
 
     //console.log(index)
@@ -50,7 +54,7 @@ export class CarritoComponent {
 
     // 3) Recalculo subtotal
     //this.calcularSubtotal();
-        if (nuevaCantidad < 1) {
+    if (nuevaCantidad < 1) {
       // Por seguridad, si fuera 0 ó negativo, lo tratamos como eliminación.
       this.cartService.updateQuantity(productId, 0);
     } else {
@@ -78,7 +82,7 @@ export class CarritoComponent {
     //  this.carrito = items;
     //  this.calcularSubtotal();
     //});
-      // 1) Nos suscribimos a items$, de modo que recibamos actualizaciones
+    // 1) Nos suscribimos a items$, de modo que recibamos actualizaciones
     this.itemsSub$ = this.cartService.items$.subscribe(items => {
       // Cada vez que cambie el carrito (añadir, borrar, updateQuantity),
       // "items" será el array actualizado.
@@ -87,7 +91,7 @@ export class CarritoComponent {
     });
   }
 
-    ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.itemsSub$) {
       this.itemsSub$.unsubscribe();
     }
