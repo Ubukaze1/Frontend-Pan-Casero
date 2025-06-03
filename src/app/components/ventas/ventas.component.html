@@ -17,23 +17,33 @@
         </div>
 -->
       </div>
-      <p-table [value]="listVentas" stripedRows [tableStyle]="{'min-width': '50rem'}">
+      <div >
+
+        @for (venta of listVentas; track venta.id) {
+      <p-table [value]="venta.products" stripedRows [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
           <tr>
             <th>Nombre</th>
             <th>Cantidad</th>
-            <th></th>
+              <th>Precio</th>
+              <th>Precio Total</th>
+              <th>Precio Global</th>
+              <th>Fecha</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-producto>
           <tr>
             <td>{{ producto.name }}</td>
-            <td>{{ producto.quantity }}</td>
-            <td>
-            </td>
+            <td>{{ producto.cantidad }}</td>
+            <td>{{ producto.precioUnitario }}</td>
+            <td>{{ producto.total }}</td>
+            <td>{{venta.total}}</td>
+            <td>{{venta.createdAt}}</td>
           </tr>
         </ng-template>
       </p-table>
+        }
+      </div>
     </div>
   </div>
 </div>

@@ -9,7 +9,7 @@ import { environment } from '../../../../environment/environment';
   providedIn: 'root'
 })
 export class VentasService {
-  private readonly URL_API = environment.apiUrl + '/payroll';
+  private readonly URL_API = environment.apiUrl + '/sales';
   private readonly isList = new BehaviorSubject<boolean>(false);
   private readonly isList$ = this.isList.asObservable();
   private readonly http = inject(HttpClient);

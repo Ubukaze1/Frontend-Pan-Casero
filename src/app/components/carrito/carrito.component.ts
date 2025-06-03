@@ -93,7 +93,9 @@ export class CarritoComponent {
     const productos = this.carrito.map(item => ({
       productoId: item.id,
       cantidad: item.cantidad,
-      precioUnitario: item.precio
+      precioUnitario: item.precio,
+      name: item.nombre,
+      total: item.cantidad * item.precio
     }));
 
     const total = this.carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);

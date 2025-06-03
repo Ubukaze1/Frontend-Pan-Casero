@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
@@ -17,7 +14,7 @@ import { MessageService } from 'primeng/api';
 import { SweetAlertService } from '../shared/sweet-alert.service';
 
 import { HeaderComponent } from '../header/header.component';
-import {VentasService} from './service/ventas.service';
+import { VentasService } from './service/ventas.service';
 
 @Component({
   selector: 'app-ventas',
@@ -37,8 +34,7 @@ import {VentasService} from './service/ventas.service';
   providers: [VentasService, MessageService],
 })
 export class VentasComponent {
-
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService) {}
   private readonly sweetAlertService = inject(SweetAlertService);
   private readonly ventasService = inject(VentasService);
 
@@ -76,6 +72,7 @@ export class VentasComponent {
           if (resp.statusCode === 200) {
             this.listVentas = resp.data.list;
             this.length = resp.data.length;
+            console.log(this.listVentas);
             this.sweetAlertService.close();
           } else {
             this.listVentas = [];
