@@ -9,6 +9,7 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import {VentasComponent} from './components/ventas/ventas.component';
 import {EmpleadoComponent} from './components/empleado/empleado.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -38,5 +39,9 @@ export const routes: Routes = [
   {
     path: 'empleados',
     component: EmpleadoComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent, canActivate: [AuthGuard]
   },
 ];
