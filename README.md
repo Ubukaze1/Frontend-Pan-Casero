@@ -24,3 +24,4 @@ En la línea de comando se puede colocar por ejemplo, el **bun run start** para 
 
 ---
 
+<small>Todo creado y sobrepensado por el +KPito 🧑‍💻 y el No hay molleja 🔥</small>
