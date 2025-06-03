@@ -1,0 +1,93 @@
+<app-header />
+<div class="flex justify-content-center flex-wrap mt-3">
+  <div class="card w-10">
+    <div class="flex justify-content-between flex-wrap align-items-center mb-1">
+      <h1>Gestiòn de Empleado</h1>
+
+      <p-button label="Nuevo empleado" severity="success" (click)="abrirModal()" />
+    </div>
+    <div class="flex align-items-center mb-4">
+      <!--
+      <div class="absolute">
+        <span class="pi pi-search relative" style="left: 15px; top: 3px"></span>
+      </div>
+-->
+      <input type="text" pInputText [(ngModel)]="value" placeholder="Buscar" class="pl-6 flex-1" />
+    </div>
+    <p-table [value]="listEmploye" stripedRows [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nombre</th>
+          <th>Numero de indentificacion</th>
+          <th>Role</th>
+          <th>Dirrecion</th>
+          <th>Salario</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-empleado>
+        <tr>
+          <td>{{ empleado.name }}</td>
+          <td>{{ empleado.role }}</td>
+          <td>{{ empleado.description }}</td>
+          <td>
+            <div class="button-div "><button class="button-editar"
+                (click)="abrirModalModificar(empleado)">Editar</button></div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <p-dialog header="Nuevo Empleado" [(visible)]="visible" [style]="{ width: '50rem' }">
+      <span class="p-text-secondary block mb-5">Registra un nuevo empleado</span>
+      <form [formGroup]="formReception">
+
+        <div class="flex items-center gap-4 mb-4 text-center">
+          <label for="name" class="font-semibold w-24 mr-8">Nombre</label>
+          <input pInputText id="name" class="flex-auto ml-7" autocomplete="off" formControlName="name" />
+        </div>
+
+        <div class="flex items-center gap-4 mb-4">
+          <label for="number_identification" class="font-semibold w-24 ">Numero de Identificacion</label>
+          <p-inputnumber id="number_identification" class="flex-auto" autocomplete="off" formControlName="number_identification" />
+        </div>
+
+        <div class="flex items-center gap-4 mb-4">
+          <label for="role" class="font-semibold w-24 mr-8">Role</label>
+          <input pInputText id="role" class="flex-auto ml-8" autocomplete="off" formControlName="role" />
+        </div>
+
+        <div class="flex items-center gap-4 mb-4">
+          <label for="address" class="font-semibold w-24 mr-8">Dirrecion</label>
+          <input  pInputText id="address" class="flex-auto ml-6" autocomplete="off" formControlName="address" />
+        </div>
+
+        <div class="flex items-center gap-4 mb-4" formGroupName="payroll">
+          <label for="salary" class="font-semibold w-24 mr-8">Salario</label>
+          <p-inputnumber type="number" id="salary" class="flex-auto ml-7" autocomplete="off" formControlName="salary" />
+        </div>
+        <p-toast />
+
+        <!-- <p-fileupload #fileUploader name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+          (onUpload)="obtenerImgUrl($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" [auto]="false"
+          mode="advanced">
+          <ng-template #empty>
+            <div>Drag and drop files to here to upload.</div>
+          </ng-template>
+          <ng-template #content>
+            <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">
+                {{ file.name }} - {{ file.size }} bytes
+              </li>
+            </ul>
+          </ng-template>
+        </p-fileupload> -->
+
+        <div class="flex justify-content-end gap-2 mt-4">
+          <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+          <p-button label="Save" (click)="salvarProducto()" *ngIf="showSave" />
+          <p-button label="Update" (click)="actualizarProducto()" *ngIf="showUpdate" />
+        </div>
+      </form>
+    </p-dialog>
+  </div>
+</div>

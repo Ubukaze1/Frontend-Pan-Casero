@@ -8,6 +8,7 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import {VentasComponent} from './components/ventas/ventas.component';
+import {EmpleadoComponent} from './components/empleado/empleado.component';
 
 export const routes: Routes = [
   {
@@ -33,5 +34,9 @@ export const routes: Routes = [
   {
     path: 'ventas',
     component: VentasComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'empleados',
+    component: EmpleadoComponent, canActivate: [AuthGuard]
   },
 ];
