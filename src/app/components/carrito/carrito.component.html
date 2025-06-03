@@ -9,6 +9,7 @@
         <span>Precio</span>
         <span>Cantidad</span>
         <span>Total</span>
+        <span>Disponible</span>
       </div>
 
       <div *ngFor="let item of carrito" class="cart-item">
@@ -23,7 +24,12 @@
         </div>
         <div class="product-price">{{ item.precio }}</div>
         <div class="product-quantity">
-          <input type="number" min="0" [(ngModel)]="item.cantidad" (ngModelChange)="cambiarCantidad(item.id, $event)" />
+          <input type="number" min="1" [attr.max]="stockDisponible[item.id] || 9999" [(ngModel)]="item.cantidad"
+            (ngModelChange)="cambiarCantidad(item.id, $event)" />
+          <!-- <small class="stock-info">
+            Stock disponible: {{ stockDisponible[item.id] || '...' }}
+          </small> -->
+          <!-- <input type="number" min="0" [(ngModel)]="item.cantidad" (ngModelChange)="cambiarCantidad(item.id, $event)" /> -->
         </div>
         <div class="product-total">{{ (item.precio * item.cantidad) }}</div>
       </div>
